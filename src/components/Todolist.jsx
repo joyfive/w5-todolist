@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 // import { Counter } from './features/counter/Counter';
 import styled from "styled-components";
-import Layout from "../components/layout/Layout";
-import Header from "../components/header/Header";
-import Form from "../components/form/Form";
-import List from "../components/list/List";
+import Header from "./Header";
+import Form from "./Form";
+import List from "./List";
+import Footer from "./Footer";
 
+const Layout = styled.div`
+display: grid;
+grid-template-columns: 1fr 3fr 1fr;
+grid-template-rows: 0.3fr 1fr 1fr 1fr 0.2fr;
+margin: 0;
+padding: 0;
+`;
+
+const Contents = styled.div`
+display: grid;
+grid-template-columns: 1fr 3fr 1fr;
+grid-template-rows: 0.3fr 1fr 1fr 1fr 0.2fr;
+margin: 0;
+padding: 0;
+`;
 
 const TodoList = () => {
     const [todos, setTodos] = useState([
@@ -29,20 +44,17 @@ const TodoList = () => {
          },
        ]);
 
-       const Layout = styled.div`
-       display: grid;
-       grid-template-columns: 1fr 3fr 1fr;
-       grid-template-rows: 0.3fr 1fr 1fr 1fr 0.2fr;
-       margin: 0;
-       padding: 0;
-   `;
+      
 
        return (
         <div>
         <Layout>
           <Header />
+          <Contents>
           <Form setTodos={setTodos} todos={todos} />
           <List todos={todos} setTodos={setTodos} />
+          </Contents>
+          <Footer />
         </Layout>
         </div>
       );

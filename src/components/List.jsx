@@ -1,6 +1,5 @@
 import React from 'react';
-import Todo from "../todo/Todo";
-import "./style.css";
+import Todo from "./Todo";
 
 function List({ todos, setTodos }) {
   const onDelete = (todoId) => {

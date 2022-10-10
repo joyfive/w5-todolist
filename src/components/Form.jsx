@@ -1,8 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 // import { Counter } from './features/counter/Counter';
-import './App.css';
 import styled from "styled-components";
+
+const FormBox = styled.form`
+width: 100%;
+height: 40px;
+margin: 0 0 120px 0;
+`;
+
+const InputContainer = styled.div`
+width: 100%;
+margin: 0 auto 0 auto;
+padding: 0 auto 0 auto;
+`
+
+const InputBox = styled.input`
+width: 40%;
+height: 56px;
+
+`
+
+const BtnBox = styled.div`
+width: 100%;
+margin: 0 auto 0 auto;
+padding: 0 auto 0 auto;
+`
+
+const BtnAdd = styled.button`
+width: 20%;
+height: 56px;
+`
+const BtnReset = styled.button`
+width: 20%;
+height: 56px;
+`
 
 let number = 4;
 function Form({ setTodos, todos }) {
@@ -37,38 +68,7 @@ function Form({ setTodos, todos }) {
     number++;
   };
   
-  const FormBox = styled.form`
-  width: 100%;
-  height: 40px;
-  margin: 0 0 120px 0;
-`;
 
-const InputContainer = styled.div`
-  width: 100%;
-  margin: 0 auto 0 auto;
-  padding: 0 auto 0 auto;
-`
-
-const InputBox = styled.input`
-  width: 40%;
-  height: 56px;
-  
-`
-
-const BtnBox = styled.div`
-  width: 100%;
-  margin: 0 auto 0 auto;
-  padding: 0 auto 0 auto;
-`
-
-const BtnAdd = styled.button`
-  width: 20%;
-  height: 56px;
-`
-const BtnReset = styled.button`
-  width: 20%;
-  height: 56px;
-`
 
   return (
     <FormBox onSubmit={onSubmit} id="add">
