@@ -1,74 +1,46 @@
-import React, { useState } from 'react';
-// import { Counter } from './features/counter/Counter';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from '../redux/modules/todos';
 import styled from "styled-components";
 
-const FormBox = styled.form`
-width: 100%;
-height: 40px;
-margin: 0 0 120px 0;
-`;
-
-const InputContainer = styled.div`
-width: 100%;
-margin: 0 auto 0 auto;
-padding: 0 auto 0 auto;
-`
-
-const InputBox = styled.input`
-width: 40%;
-height: 56px;
-
-`
-
-const BtnBox = styled.div`
-width: 100%;
-margin: 0 auto 0 auto;
-padding: 0 auto 0 auto;
-`
-
-const BtnAdd = styled.button`
-width: 20%;
-height: 56px;
-`
-const BtnReset = styled.button`
-width: 20%;
-height: 56px;
-`
-
-let number = 4;
-function Form({ setTodos, todos }) {
-  const todoItem = {
-    id: 0,
-    title: "",
-    body: "",
-    isDone: false,
-  };
- 
-  console.log(todos);
-
-  const [todo, setTodo] = useState(todoItem);
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
-  };
-
-  const onReset = (e) => {
-    setTodo({
+let num = 3
+const Form = () => {
+    const dispatch = useDispatch();
+    const todos = useSelector((state) => state.todos.todos);
+    const [todo, setTodo] = useState({
+      id: 0,
       title: "",
       body: "",
+      isDone: false,
     });
-  };
-
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if (todo.title.trim() === "" || todo.body.trim() === "") return;
-    setTodos([...todos, { ...todo, id: number }]);
-    setTodo(todoItem);
-    number++;
-  };
   
+    const onChange = (event) => {
+        const { name, value } = event.target;
+        setTodo({ ...todo, [name]: value });
+    };
 
+    const onReset = (e) => {
+        setTodo({
+        title: "",
+        body: "",
+        });
+    };
+
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if (todos.title.trim() === "" || todos.body.trim() === "") return;
+        dispatch (addTodo({ ...todos, id: num }));
+        setTodo(
+          {
+            id: 0,
+            title: "",
+            body: "",
+            isDone: false,
+          }
+        );
+        num++;
+    };
 
   return (
     <FormBox onSubmit={onSubmit} id="add">
@@ -95,9 +67,43 @@ function Form({ setTodos, todos }) {
         </BtnBox>
     </FormBox>
   );
-}
+};
   
 
 // function getCurrentState () {}
 // export default connect(getCurrentState) (Form);
 export default Form;
+
+const FormBox = styled.form`
+width: 100%;
+height: 40px;
+margin: 0 0 120px 0;
+`;
+
+const InputContainer = styled.section`
+width: 100%;
+margin: 0 auto 0 auto;
+padding: 0 auto 0 auto;
+`;
+
+const InputBox = styled.input`
+width: 40%;
+height: 56px;
+
+`;
+
+const BtnBox = styled.div`
+width: 100%;
+margin: 0 auto 0 auto;
+padding: 0 auto 0 auto;
+`;
+
+const BtnAdd = styled.button`
+width: 20%;
+height: 56px;
+`;
+
+const BtnReset = styled.button`
+width: 20%;
+height: 56px;
+`;

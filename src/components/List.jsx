@@ -1,19 +1,20 @@
 import React from 'react';
-import Todo from "./Todo";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, switchStatus } from "../redux/modules/todos.js";
+import styled from "styled-components";
+import Todo from './Todo'
 
-function List({ todos, setTodos }) {
-  const onDelete = (todoId) => {
-    const todoItem = todos.filter((todo) => {
-      return todo.id !== todoId;
-    });
-    setTodos(todoItem);
+
+const List = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos.todos);
+
+  const onDelete = (id) => {
+    dispatch(deleteTodo(id));
   };
-  const onEdit = (todoId) => {
-    const todoItem = todos.map((todo) => {
-      return (todo.id === todoId ? {...todo, isDone: !todo.isDone,} :  {...todo} )
 
-    });
-    setTodos(todoItem);
+  const onStatus = (id) => {
+    dispatch(switchStatus(id));
   };
 
   return (
@@ -26,9 +27,9 @@ function List({ todos, setTodos }) {
                 <Todo
                 todo={todo}
                 key={todo.id}
-                setTodos={setTodos}
+                todos={todos}
                 onDelete={onDelete}
-                onEdit={onEdit}
+                onEdit={onStatus}
                 />
               );
             } else {
@@ -37,25 +38,29 @@ function List({ todos, setTodos }) {
           })}
         </div>
         <div className="list-tit">완료 😎</div>
-        <div className="list-wrap">
+        <ListWrap>
         {todos.map((todo) => {
             if (todo.isDone) {
               return (
                 <Todo
                 todo={todo}
                 key={todo.id}
-                setTodos={setTodos}
+                todos={todos}
                 onDelete={onDelete}
-                onEdit={onEdit}
+                onEdit={onStatus}
                 />
               )
             } else {
               return null;
             }
           })}
-        </div>
+        </ListWrap>
     </div>
   );
 }
 
 export default List;
+
+const ListWrap = styled.div`
+  margin: 20;
+`

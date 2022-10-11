@@ -1,11 +1,12 @@
 import React from 'react';
+// import { useDispatch } from "react-redux"; 
 // import { Counter } from './features/counter/Counter';
-import TodoList from './components/Todolist'
+// import TodoList from './pages/Todolist'
+import Router from "./shared/Router";
 
-function App() {
-  return ( 
-    <TodoList />
-    )
+
+const App = () => {
+  return <Router />;
 }
 
 export default App;
