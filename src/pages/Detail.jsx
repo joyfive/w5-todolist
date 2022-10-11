@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTodoID } from "../redux/modules/todos.js";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import { getTodoID } from "../redux/modules/todos";
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Detail = () => {
   const dispatch = useDispatch();

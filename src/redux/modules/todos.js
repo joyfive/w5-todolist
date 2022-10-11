@@ -38,18 +38,18 @@ export const getTodoID = (payload) => {
 };
 
 // initial state
-const initialState = {
+const init = {
   todos: [
     {
       id: "1",
       title: "리덕스 101 강의듣기",
       body: "노마드 코더의 강의를 들어봅시다",
-      isDone: false,
+      isDone: true,
     },
     {
       id: "2",
-      title: "리덕스 101 강의듣기",
-      body: "노마드 코더의 강의를 들어봅시다",
+      title: "리덕스로 수정해보기",
+      body: "기능을 개발해보자",
       isDone: false,
     },
   ],
@@ -61,7 +61,7 @@ const initialState = {
   },
 };
 
-const todos = (state = initialState, action) => {
+const todos = (state = init, action) => {
   switch (action.type) {
     case ADD_TODO:
       return {

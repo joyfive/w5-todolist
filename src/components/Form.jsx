@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTodo } from '../redux/modules/todos';
 import styled from "styled-components";
 
-let num = 3
+let num = 4;
 const Form = () => {
     const dispatch = useDispatch();
-    const todos = useSelector((state) => state.todos.todos);
     const [todo, setTodo] = useState({
       id: 0,
       title: "",
@@ -29,16 +28,15 @@ const Form = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        if (todos.title.trim() === "" || todos.body.trim() === "") return;
-        dispatch (addTodo({ ...todos, id: num }));
-        setTodo(
-          {
-            id: 0,
-            title: "",
-            body: "",
-            isDone: false,
-          }
-        );
+        
+        if (todo.title.trim() === "" || todo.body.trim() === "") return;
+        dispatch(addTodo({ ...todo, id: num }));
+        setTodo({
+          id: 0,
+          title: "",
+          body: "",
+          isDone: false,
+        });
         num++;
     };
 
@@ -75,9 +73,11 @@ const Form = () => {
 export default Form;
 
 const FormBox = styled.form`
-width: 100%;
-height: 40px;
-margin: 0 0 120px 0;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  width: 100%;
+  height: 40px;
+  margin: 0 0 120px 0;
 `;
 
 const InputContainer = styled.section`

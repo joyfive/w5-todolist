@@ -9,7 +9,6 @@ import Footer from "../components/Footer";
 const TodoList = () => {
 
        return (
-        <div>
         <Layout>
           <Header />
           <Contents>
@@ -18,7 +17,6 @@ const TodoList = () => {
           </Contents>
           <Footer />
         </Layout>
-        </div>
       );
     };
     
@@ -28,13 +26,19 @@ const TodoList = () => {
     const Layout = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-auto-rows: minmax(40px, auto);
+    grid-template-rows: repeat(4, minmax(40px, auto));
+    gap: 0;
+    /* grid-auto-rows: minmax(40px, auto); */
     margin: 0;
     padding: 0;
     `;
     
     const Contents = styled.div`
-    margin: 80px 0 80px 0;
+    margin: 0;
+    width: 100%;
+    background-color: pink;
     padding: 0;
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
     `;
-    
+  
