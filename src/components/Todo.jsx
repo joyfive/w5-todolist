@@ -7,7 +7,7 @@ function Todo({ todo, onEdit, onDelete }) {
           <div className="todo-cont">
               <div> 
                 <div className="todo-tit">{todo.title}</div>
-                <div to={`/${todo.id}`} key={todo.id}> 👉 </div>
+                <Link to={`/${todo.id}`} key={todo.id}> 👉 </Link>
               </div>
               <div className="todo-body">{todo.body}</div>
           </div>
