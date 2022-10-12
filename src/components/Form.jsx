@@ -6,6 +6,8 @@ import styled from "styled-components";
 let num = 4;
 const Form = () => {
     const dispatch = useDispatch();
+    const [titError, setTitError] = useState('');
+    const [bodyError, setBodyError] = useState('');
     const [todo, setTodo] = useState({
       id: 0,
       title: "",
@@ -23,42 +25,76 @@ const Form = () => {
         title: "",
         body: "",
         });
+        resetErrors();
     };
+    
+    const validateForm = () => {
+      resetErrors();
+      let validated = true;
+      if (!todo.title) {
+        setTitError('제목을 입력해주세요.');
+        validated = false;
+      }
+      if (!todo.body) {
+        setBodyError('내용을 입력해주세요.');
+        validated = false;
+      }
+      return validated;
+    }
 
 
     const onSubmit = (event) => {
         event.preventDefault();
-        
-        if (todo.title.trim() === "" || todo.body.trim() === "") return;
-        dispatch(addTodo({ ...todo, id: num }));
-        setTodo({
-          id: 0,
-          title: "",
-          body: "",
-          isDone: false,
-        });
-        num++;
+        if (validateForm()) {
+          if (todo.title.trim() === "" || todo.body.trim() === "") 
+          return;
+          dispatch(addTodo({ ...todo, id: num }));
+          setTodo({
+            id: 0,
+            title: "",
+            body: "",
+            isDone: false,
+          });
+          num++;
+          resetErrors();
     };
+  }
+
+    const resetErrors = () => {
+      setTitError('');
+      setBodyError('');
+    }
 
   return (
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
+          <InputVali>
             <InputBox
               type="text"
               name="title"
               value={todo.title}
               onChange={onChange}
-              placeholder='제목을 입력하세요.'
+              placeholder='제목'
             />
+            <Valitext>{titError}</Valitext>
+          </InputVali>
+          <InputVali>
             <InputBox
               type="text"
               name="body"
               value={todo.body}
               onChange={onChange}
               className="input-txt"
-              placeholder='내용을 입력하세요.'
+              placeholder='내용'
             />
+            <Valitext>{bodyError}</Valitext>
+          </InputVali>
+          
         </InputContainer>
+        
+        
+        
+        
         <BtnBox>
           <BtnAdd type="submit" form="add" className="form-btn" >추가하기</BtnAdd>
           <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
@@ -89,8 +125,14 @@ flex-direction: row;
 justify-content: space-between;
 `;
 
+const InputVali = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+`
+
 const InputBox = styled.input`
-width: 43%;
+
 height: 40px;
 margin: 10px;
 padding: 0px;
@@ -148,3 +190,12 @@ background-color: transparent;
   color: white;
 }
 `;
+
+
+const Valitext = styled.div`
+width: 100%;
+margin-left: 10px;
+padding: 0px;
+font-size: 0.7rem;
+color: red;
+`

@@ -69,7 +69,7 @@ export default List;
 
 const ListWrap = styled.article`
   margin: 10px;
-  width: 320px;
+  width: 340px;
   height: 580px;
   background-color: #e2d3c4;
   border: 1px solid #39796b;
@@ -80,6 +80,7 @@ const ListWrap = styled.article`
 const ListCont = styled.section`
   margin: 80px 0 70px 0;
   padding: 10px;
+  min-height: 72vh;
   display: flex;
   flex-direction: row;
   justify-content: center;

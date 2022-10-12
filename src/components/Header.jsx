@@ -29,6 +29,8 @@ const HeadContainer = styled.section`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  position: fixed;
+  top:0;
 `
 const HeadLeft = styled.a`
   font-size: 0.8rem;

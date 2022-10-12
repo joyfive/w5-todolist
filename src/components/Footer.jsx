@@ -21,4 +21,6 @@ const FootContainer = styled.section`
   font-size: 0.8rem;
   font-weight: 400;
   margin: 0;
+  position: fixed;
+  bottom: 0;
 `
