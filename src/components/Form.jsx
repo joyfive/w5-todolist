@@ -115,6 +115,10 @@ const FormBox = styled.form`
   margin: 40px 10px;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 900px) {
+    }
+
+
   
 `;
 
@@ -123,6 +127,9 @@ width: 100%;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
+@media screen and (max-width: 900px) {
+  display: block;
+    }
 
 `;
 
@@ -131,6 +138,12 @@ const InputVali = styled.div`
   flex-direction: column;
   width: 45%;
   font-family: 'IBM Plex Sans KR', sans-serif;
+
+  @media screen and (max-width: 900px) {
+        width: 90%;
+        margin: 0 auto 0 auto;
+    }
+  
 `
 
 const InputBox = styled.input`
@@ -147,6 +160,9 @@ border-color: #39796b;
   color: #39796b;
   font-size: 0.8rem;
   font-weight: 400;
+    @media screen and (max-width: 900px) {
+        
+    }
 `;
 
 const BtnBox = styled.div`
@@ -155,6 +171,11 @@ width: 100%;
 display: flex;
 flex-direction: row;
 justify-content: end;
+@media screen and (max-width: 900px) {
+        justify-content: center;
+        height: 120px;
+        margin-top: 10px;
+    }
 
 `;
 
@@ -170,10 +191,15 @@ font-size: 0.7rem;
 border: 1px solid #39796b;
 background-color: transparent;
 
+
 &:hover {
   background-color: #39796b;
   color: white;
 }
+
+@media screen and (max-width: 900px) {
+        width: 30%;
+    }
 
 
 `;
@@ -194,6 +220,11 @@ background-color: transparent;
   background-color: #39796b;
   color: white;
 }
+
+@media screen and (max-width: 900px) {
+        width: 30%;
+    }
+
 `;
 
 

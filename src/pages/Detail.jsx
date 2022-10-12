@@ -49,17 +49,20 @@ const Layout = styled.div`
     background-color: #ffefe0;
     margin: 0;
     padding: 0;
+    
 `;
 
 const DetailBox = styled.div`
     width: 95%;
     max-width: 400px;
-    margin: 20% auto 10% auto;
+    margin: 15% auto 10% auto;
     border: 1px solid #ccc0ae;
     background-color: #aebfbe;
     display: flex;
     flex-direction: column;
-
+    @media screen and (max-width: 900px) {
+        margin-top: 35%;
+    }
 `;
 
 const TitBox = styled.section`
@@ -68,6 +71,7 @@ const TitBox = styled.section`
     background-color: #004d40;
     color: #ffefe0;
     
+    
 `;
 
 const Title = styled.h1`
@@ -75,6 +79,10 @@ const Title = styled.h1`
     font-weight: 700;
     line-height: 0.6;
     background-color: transparent;
+    @media screen and (max-width: 900px) {
+        font-size: 1.4rem;
+        line-height: 0.7;
+    }
 `;
 
 const Id = styled.p`
@@ -82,6 +90,9 @@ const Id = styled.p`
     font-weight: 300;
     line-height: 0.3;
     background-color: transparent;
+    @media screen and (max-width: 900px) {
+        font-size: 0.7rem;
+    }
 `;
 
 const Body = styled.p`
@@ -105,6 +116,7 @@ const BtnReturn = styled.button`
   line-height: 1;
   border: 1px solid #39796b;
   background-color: transparent;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 
 &:hover {
   background-color: #39796b;

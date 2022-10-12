@@ -26,12 +26,17 @@ const TodoList = () => {
     const Layout = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: auto;
     gap: 0;
     /* grid-auto-rows: minmax(40px, auto); */
     margin: 0;
     padding: 0;
     background-color: #ffefe0;
+
+    @media screen and (max-width: 900px) {
+        grid-template-columns: 1fr;
+        width: 95%;
+    }
     `;
     
     const Contents = styled.div`
@@ -40,4 +45,9 @@ const TodoList = () => {
     padding: 0;
     grid-column: 2 / 3;
     grid-row: 2 / 4;
+
+    @media screen and (max-width: 900px) {
+        grid-column: 1 / 2;
+        width: 95%;
+    }
     `;

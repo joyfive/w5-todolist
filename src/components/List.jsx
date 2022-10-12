@@ -69,12 +69,16 @@ export default List;
 
 const ListWrap = styled.article`
   margin: 10px;
-  width: 340px;
-  height: 580px;
+  width: 320px;
+  min-height: 560px;
   background-color: #e2d3c4;
   border: 1px solid #39796b;
   padding: 5px;
   overflow: auto;
+  @media screen and (max-width: 900px) {
+        min-height: 100px;
+    }
+  
 `
 
 const ListCont = styled.section`
@@ -84,6 +88,13 @@ const ListCont = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  @media screen and (max-width: 900px) {
+        /* flex-direction: column;
+        align-content: center;
+        align-items: center; */
+        display: block;
+        margin-top: 140px;
+    }
   
 `
 
@@ -91,7 +102,12 @@ const ListTit = styled.section`
 grid-template-rows: 2 / 3;
 grid-template-columns: 3 / 4;
 font-weight: 700;
-font-size: 1.6rem;
+font-size: 1.4rem;
 color: #004d40;
 margin: 10px 20px;
+
+@media screen and (max-width: 900px) {
+        margin-top: 40px;
+        
+    }
 `

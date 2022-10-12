@@ -24,4 +24,8 @@ const FootContainer = styled.section`
   position: fixed;
   bottom: 0;
   left: 0;
+
+  @media screen and (max-width: 900px) {
+        font-size: 0.6rem;
+    }
 `
