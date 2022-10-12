@@ -91,7 +91,7 @@ const ListTit = styled.section`
 grid-template-rows: 2 / 3;
 grid-template-columns: 3 / 4;
 font-weight: 700;
-font-size: 1.4rem;
+font-size: 1.6rem;
 color: #004d40;
 margin: 10px 20px;
 `

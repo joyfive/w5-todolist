@@ -16,7 +16,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(getID(id));
   }, [dispatch, id]);
-// console.log(id, todoItem.title, todoItem.body)
+console.log(todoItem.id, todoItem.title, todoItem.body)
  return (
         <Layout>
             <Header />

@@ -44,6 +44,7 @@ const Todobox = styled.article`
   background-color: ${props => props.color || "blue"};
 `
 const Title = styled.div`
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -54,6 +55,7 @@ const Title = styled.div`
   color: #39796b;
   `
   const Body = styled.div`
+  font-family: 'IBM Plex Sans KR', sans-serif;
   font-weight: 300;
   font-size: 0.8rem;
   color: #00251a;

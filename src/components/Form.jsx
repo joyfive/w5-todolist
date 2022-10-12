@@ -115,6 +115,7 @@ const FormBox = styled.form`
   margin: 40px 10px;
   display: flex;
   flex-direction: column;
+  
 `;
 
 const InputContainer = styled.section`
@@ -122,16 +123,18 @@ width: 100%;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
+
 `;
 
 const InputVali = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 `
 
 const InputBox = styled.input`
-
+font-family: 'IBM Plex Sans KR', sans-serif;
 height: 40px;
 margin: 10px;
 padding: 0px;
@@ -147,6 +150,7 @@ border-color: #39796b;
 `;
 
 const BtnBox = styled.div`
+
 width: 100%;
 display: flex;
 flex-direction: row;
@@ -155,6 +159,7 @@ justify-content: end;
 `;
 
 const BtnAdd = styled.button`
+font-family: 'IBM Plex Sans KR', sans-serif;
 display: block;
 width: 10%;
 height: 32px;
@@ -174,6 +179,7 @@ background-color: transparent;
 `;
 
 const BtnReset = styled.button`
+font-family: 'IBM Plex Sans KR', sans-serif;
 display: block;
 width: 10%;
 height: 32px;
