@@ -31,6 +31,7 @@ const HeadContainer = styled.section`
   justify-content: space-around;
   position: fixed;
   top:0;
+  left: 0;
 `
 const HeadLeft = styled.a`
   font-size: 0.8rem;

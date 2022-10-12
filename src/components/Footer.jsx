@@ -23,4 +23,5 @@ const FootContainer = styled.section`
   margin: 0;
   position: fixed;
   bottom: 0;
+  left: 0;
 `
