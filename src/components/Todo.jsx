@@ -8,9 +8,9 @@ function Todo({ todo, onEdit, onDelete }) {
 
  return (
         <Todobox color={todo.isDone ? "#e2d3c4" : "#ffefe0"} border={todo.isDone ? "#ffefe0" : "#004d40;"}>
-          <div className="todo-cont">
+          <Container>
               <Title> 
-                <div className="todo-tit">{todo.title}</div>
+                <TitText>{todo.title}</TitText>
                 <BtnSet>
                   <Btn 
                   onClick={() => onEdit(todo.id)}>
@@ -26,7 +26,7 @@ function Todo({ todo, onEdit, onDelete }) {
               <Hr />
               <Body>{todo.body}</Body>
               
-          </div>
+          </Container>
           <StyledLink to={`/${todo.id}`} style={{textDecoration: 'none'}}key={todo.id}> view more </StyledLink>
 
       </Todobox>
@@ -43,6 +43,10 @@ const Todobox = styled.article`
   /** done */
   background-color: ${props => props.color || "blue"};
 `
+
+const Container = styled.div`
+  background-color: transparent;
+`
 const Title = styled.div`
 
   display: flex;
@@ -52,13 +56,20 @@ const Title = styled.div`
   font-weight: 600;
   font-size: 1rem;
   line-height: 2;
+  background-color: transparent;
   color: #39796b;
   `
+
+  const TitText = styled.div`
+    background-color: transparent;
+  `
+
   const Body = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
   font-weight: 300;
   font-size: 0.8rem;
   color: #00251a;
+  background-color: transparent;
   margin: 15px 5px;
 `
 
@@ -70,7 +81,7 @@ const Btn = styled.button`
   border: 0;
   border-radius: 20px;
   font-size: 1.1rem;
-  line-height: 1.75;
+  line-height: 1.6;
   margin: 5px;
   
   &:hover {
@@ -84,7 +95,7 @@ const Hr = styled.hr`
 `
 
 const BtnSet = styled.div`
-  
+    background-color: transparent;
 `
 const Link = ({children, ...props}) => {
   return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
@@ -100,10 +111,11 @@ const StyledLink = styled(Link)`
   border: 1px solid #39796b;
   margin-top: 30px;
   color: #39796b;
+  background-color: transparent;
 
   &:hover{
     background-color: #39796b;
-    color: #fff
+    color: #ffefe0;
   }
 `
 

@@ -31,7 +31,7 @@ const TodoList = () => {
     /* grid-auto-rows: minmax(40px, auto); */
     margin: 0;
     padding: 0;
-    background-color: #fff3e0;
+    background-color: #ffefe0;
     `;
     
     const Contents = styled.div`

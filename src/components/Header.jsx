@@ -37,12 +37,14 @@ const HeadLeft = styled.a`
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
+  background-color: transparent;
 `
 
 const HeadRight1 = styled.a`
   font-size: 0.8rem;
   font-weight: 600;
   align-content: center;
+  background-color: transparent;
   `
 
 const HeadRight2 = styled.button`

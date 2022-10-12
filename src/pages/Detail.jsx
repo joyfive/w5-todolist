@@ -46,7 +46,7 @@ const Layout = styled.div`
     display: block;
     width: 100%;
     height: 100vh;
-    background-color: #fff3e0;
+    background-color: #ffefe0;
     margin: 0;
     padding: 0;
 `;
@@ -54,7 +54,7 @@ const Layout = styled.div`
 const DetailBox = styled.div`
     width: 95%;
     max-width: 400px;
-    margin: 240px auto 240px auto;
+    margin: 20% auto 10% auto;
     border: 1px solid #ccc0ae;
     background-color: #aebfbe;
     display: flex;
@@ -66,7 +66,7 @@ const TitBox = styled.section`
     padding: 0 15px;
     height: 80px;
     background-color: #004d40;
-    color: #fff3e0;
+    color: #ffefe0;
     
 `;
 
@@ -74,12 +74,14 @@ const Title = styled.h1`
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 0.6;
+    background-color: transparent;
 `;
 
 const Id = styled.p`
     font-size: 0.8rem;
     font-weight: 300;
     line-height: 0.3;
+    background-color: transparent;
 `;
 
 const Body = styled.p`
@@ -89,6 +91,7 @@ const Body = styled.p`
     color: #004d40;
     height: 100%;
     min-height: 240px;
+    background-color: transparent;
 `;
 
 const BtnReturn = styled.button`
@@ -99,6 +102,7 @@ const BtnReturn = styled.button`
   color: #39796b;
   font-weight: 600;
   font-size: 0.7rem;
+  line-height: 1;
   border: 1px solid #39796b;
   background-color: transparent;
 
