@@ -77,6 +77,7 @@ const ListWrap = styled.article`
   overflow: auto;
   @media screen and (max-width: 900px) {
         min-height: 100px;
+        margin: 0 auto;
     }
   
 `
@@ -93,7 +94,7 @@ const ListCont = styled.section`
         align-content: center;
         align-items: center; */
         display: block;
-        margin-top: 140px;
+        margin: 140px auto 20px auto;
     }
   
 `
@@ -108,6 +109,9 @@ margin: 10px 20px;
 
 @media screen and (max-width: 900px) {
         margin-top: 40px;
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
         
     }
 `
