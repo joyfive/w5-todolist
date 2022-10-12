@@ -55,7 +55,7 @@ const Form = () => {
             body: todo.body,
             isDone: false,
           });
-          resetErrors();
+          onReset();
     };
   }
 
