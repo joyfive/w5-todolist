@@ -51,8 +51,14 @@ const init = {
       title: "리덕스로 수정해보기",
       body: "기능을 개발해보자",
       isDone: false,
-    }
-  ]
+    },
+  ],
+  todo: {
+    id: "0",
+    title: "",
+    body: "",
+    isDone: false,
+  }
 };
 
 const todos = (state = init, action) => {

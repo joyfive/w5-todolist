@@ -16,7 +16,7 @@ const Detail = () => {
   useEffect(() => {
     dispatch(getID(id));
   }, [dispatch, id]);
-console.log(todoItem.id, todoItem.title, todoItem.body)
+console.log(todoItem)
  return (
         <Layout>
             <Header />
@@ -43,6 +43,7 @@ console.log(todoItem.id, todoItem.title, todoItem.body)
 export default Detail;
 
 const Layout = styled.div`
+    display: block;
     width: 100%;
     height: 100vh;
     background-color: #fff3e0;
