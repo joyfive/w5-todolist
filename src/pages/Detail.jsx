@@ -2,31 +2,30 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTodoID } from "../redux/modules/todos";
+import { getID } from "../redux/modules/todos";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.todos.todo);
-
+  const todoItem = useSelector((state) => state.todos.todo);
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getTodoID(id));
+    dispatch(getID(id));
   }, [dispatch, id]);
-
+// console.log(id, todoItem.title, todoItem.body)
  return (
         <Layout>
             <Header />
             <DetailBox>
               <TitBox>
-                <Title>{todo.title}</Title>
-                <div>ID :{todo.id}</div>
+                <Title>{todoItem.title}</Title>
+                <Id>ID : {todoItem.id}</Id>
               </TitBox>
-                <Body>{todo.body}</Body>
+                <Body>{todoItem.body}</Body>
                 <BtnReturn
                     onClick={()=>{
                       navigate("/")
@@ -45,13 +44,15 @@ export default Detail;
 
 const Layout = styled.div`
     width: 100%;
+    height: 100vh;
     background-color: #fff3e0;
     margin: 0;
     padding: 0;
 `;
 
 const DetailBox = styled.div`
-    width: 60%;
+    width: 95%;
+    max-width: 400px;
     margin: 240px auto 240px auto;
     border: 1px solid #ccc0ae;
     background-color: #aebfbe;
@@ -61,12 +62,8 @@ const DetailBox = styled.div`
 `;
 
 const TitBox = styled.section`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 60px;
+    padding: 0 15px;
+    height: 80px;
     background-color: #004d40;
     color: #fff3e0;
     
@@ -74,8 +71,14 @@ const TitBox = styled.section`
 
 const Title = styled.h1`
     font-size: 1.6rem;
-    text-align : center;
     font-weight: 700;
+    line-height: 0.6;
+`;
+
+const Id = styled.p`
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 0.3;
 `;
 
 const Body = styled.p`

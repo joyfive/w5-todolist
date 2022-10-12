@@ -1,6 +1,6 @@
 // Action value
 const ADD_TODO = "ADD_TODO";
-const GET_TODO_ID = "GET_TODO_ID";
+const GET_ID = "GET_ID";
 const DELETE_TODO = "DELETE_TODO";
 const SWITCH_STATUS = "SWITCH_STATUS";
 
@@ -30,9 +30,9 @@ export const switchStatus = (payload) => {
 };
 
 // 상세 페이지에서 특정 Todo만 조회하는 action creator
-export const getTodoID = (payload) => {
+export const getID = (payload) => {
   return {
-    type: GET_TODO_ID,
+    type: GET_ID,
     payload,
   };
 };
@@ -51,14 +51,8 @@ const init = {
       title: "리덕스로 수정해보기",
       body: "기능을 개발해보자",
       isDone: false,
-    },
-  ],
-  todo: {
-    id: "0",
-    title: "",
-    body: "",
-    isDone: false,
-  },
+    }
+  ]
 };
 
 const todos = (state = init, action) => {
@@ -90,16 +84,20 @@ const todos = (state = init, action) => {
         }),
       };
 
-    case GET_TODO_ID:
+    case GET_ID:
       return {
         ...state,
         todo: state.todos.find((todo) => {
           return todo.id === action.payload;
         }),
       };
+      
     default:
       return state;
+      
   }
+  
 };
+
 
 export default todos;

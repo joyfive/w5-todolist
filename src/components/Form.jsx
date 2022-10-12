@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from '../redux/modules/todos';
+import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 
-let num = 4;
 const Form = () => {
     const dispatch = useDispatch();
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
     const [todo, setTodo] = useState({
-      id: 0,
+      id: uuidv4(),
       title: "",
       body: "",
       isDone: false,
@@ -48,14 +48,13 @@ const Form = () => {
         if (validateForm()) {
           if (todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          dispatch(addTodo({ ...todo, id: num }));
+          dispatch(addTodo({ ...todo, id: uuidv4() }));
           setTodo({
-            id: 0,
-            title: "",
-            body: "",
+            id: uuidv4(),
+            title: todo.title,
+            body: todo.body,
             isDone: false,
           });
-          num++;
           resetErrors();
     };
   }
