@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Footer = () => {
   return (
-    <FootContainer>Footer</FootContainer>
+    <FootContainer>Copyright 2022. hang-hae99 9th joyfive. all rights reserved.</FootContainer>
   )
 }
 
@@ -14,8 +14,11 @@ const FootContainer = styled.section`
   grid-row: 4 / 5;
   width: 100%;
   height: 30px;
+  background-color: #e2d3c4;
+  color: #00251a;
+  line-height: 2.5;
   text-align: center;
-  margin-top: 120px;
-  background-color: #e3e3e3;
-  
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 0;
 `

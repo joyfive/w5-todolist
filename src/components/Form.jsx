@@ -48,7 +48,7 @@ const Form = () => {
               name="title"
               value={todo.title}
               onChange={onChange}
-              placeholder='제목'
+              placeholder='제목을 입력하세요.'
             />
             <InputBox
               type="text"
@@ -56,7 +56,7 @@ const Form = () => {
               value={todo.body}
               onChange={onChange}
               className="input-txt"
-              placeholder='내용'
+              placeholder='내용을 입력하세요.'
             />
         </InputContainer>
         <BtnBox>
@@ -77,33 +77,74 @@ const FormBox = styled.form`
   grid-row: 2 / 3;
   width: 100%;
   height: 40px;
-  margin: 0 0 120px 0;
+  margin: 40px 10px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InputContainer = styled.section`
 width: 100%;
-margin: 0 auto 0 auto;
-padding: 0 auto 0 auto;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
 `;
 
 const InputBox = styled.input`
-width: 40%;
-height: 56px;
+width: 43%;
+height: 40px;
+margin: 10px;
+padding: 0px;
+background-color: transparent;
 
+outline: 0;
+border-width: 0 0 1px;
+border-color: #39796b;
+
+  color: #39796b;
+  font-size: 0.8rem;
+  font-weight: 400;
 `;
 
 const BtnBox = styled.div`
 width: 100%;
-margin: 0 auto 0 auto;
-padding: 0 auto 0 auto;
+display: flex;
+flex-direction: row;
+justify-content: end;
+
 `;
 
 const BtnAdd = styled.button`
-width: 20%;
-height: 56px;
+display: block;
+width: 10%;
+height: 32px;
+margin: 10px;
+color: #39796b;
+font-weight: 600;
+font-size: 0.7rem;
+border: 1px solid #39796b;
+background-color: transparent;
+
+&:hover {
+  background-color: #39796b;
+  color: white;
+}
+
+
 `;
 
 const BtnReset = styled.button`
-width: 20%;
-height: 56px;
+display: block;
+width: 10%;
+height: 32px;
+margin: 10px;
+color: #39796b;
+font-weight: 600;
+font-size: 0.7rem;
+border: 1px solid #39796b;
+background-color: transparent;
+
+&:hover {
+  background-color: #39796b;
+  color: white;
+}
 `;

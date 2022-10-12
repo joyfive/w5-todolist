@@ -26,19 +26,18 @@ const TodoList = () => {
     const Layout = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-rows: repeat(4, minmax(40px, auto));
+    grid-template-rows: repeat(4, auto);
     gap: 0;
     /* grid-auto-rows: minmax(40px, auto); */
     margin: 0;
     padding: 0;
+    background-color: #fff3e0;
     `;
     
     const Contents = styled.div`
     margin: 0;
     width: 100%;
-    background-color: pink;
     padding: 0;
     grid-column: 2 / 3;
     grid-row: 2 / 4;
     `;
-  

@@ -18,9 +18,10 @@ const List = () => {
   };
 
   return (
-    <div className="list-container">
-        <div className="list-tit">할일 🙄</div>
-        <div className="list-wrap">
+    <ListCont>
+      <div>
+        <ListTit>해야 할일.</ListTit>
+        <ListWrap>
           {todos.map((todo) => {
             if (!todo.isDone) {
               return (
@@ -36,8 +37,11 @@ const List = () => {
               return null;
             }
           })}
+        </ListWrap>
         </div>
-        <div className="list-tit">완료 😎</div>
+
+        <div>
+        <ListTit>완료한 할일.</ListTit>
         <ListWrap>
         {todos.map((todo) => {
             if (todo.isDone) {
@@ -54,13 +58,39 @@ const List = () => {
               return null;
             }
           })}
+         
         </ListWrap>
-    </div>
+        </div>
+    </ListCont>
   );
 }
 
 export default List;
 
-const ListWrap = styled.div`
-  margin: 20;
+const ListWrap = styled.article`
+  margin: 10px;
+  width: 320px;
+  height: 580px;
+  background-color: #e2d3c4;
+  border: 1px solid #39796b;
+  padding: 5px;
+  overflow: auto;
+`
+
+const ListCont = styled.section`
+  margin: 80px 0 70px 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+`
+
+const ListTit = styled.section`
+grid-template-rows: 2 / 3;
+grid-template-columns: 3 / 4;
+font-weight: 700;
+font-size: 1.4rem;
+color: #004d40;
+margin: 10px 20px;
 `
