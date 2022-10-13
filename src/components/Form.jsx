@@ -49,12 +49,7 @@ const Form = () => {
           if (todo.title.trim() === "" || todo.body.trim() === "") 
           return;
           dispatch(addTodo({ ...todo, id: uuidv4() }));
-          setTodo({
-            id: uuidv4(),
-            title: todo.title,
-            body: todo.body,
-            isDone: false,
-          });
+
           onReset();
     };
   }
