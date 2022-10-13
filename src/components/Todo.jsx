@@ -1,11 +1,7 @@
 import React from "react";
 import { Link as ReactRouterDomLink } from "react-router-dom";
 import styled from "styled-components";
-
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-
+import { GoTrashcan, GoDiffAdded, GoDiffRemoved } from "react-icons/go";
 
 
 function Todo({ todo, onEdit, onDelete }) {
@@ -18,12 +14,12 @@ function Todo({ todo, onEdit, onDelete }) {
                 <BtnSet>
                   <Btn 
                   onClick={() => onEdit(todo.id)}>
-                  {todo.isDone ? <ArrowBackIcon /> : <ArrowForwardIcon />}  
+                  {todo.isDone ? <GoDiffRemoved style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} /> : <GoDiffAdded style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} />}  
                   </Btn>
                   <Btn 
                   className="btn del"
                   onClick={() => onDelete(todo.id)}
-                  ><CloseSharpIcon /> 
+                  ><GoTrashcan style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} />
                   </Btn>
                 </BtnSet>
               </Title>
@@ -87,6 +83,7 @@ const Btn = styled.button`
   font-size: 1.1rem;
   line-height: 1.6;
   margin: 5px;
+  cursor: pointer;
   
   &:hover {
     background-color: #fff;
@@ -122,5 +119,3 @@ const StyledLink = styled(Link)`
     color: #ffefe0;
   }
 `
-
-

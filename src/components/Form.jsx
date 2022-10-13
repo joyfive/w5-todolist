@@ -190,6 +190,7 @@ font-weight: 600;
 font-size: 0.7rem;
 border: 1px solid #39796b;
 background-color: transparent;
+cursor: pointer;
 
 
 &:hover {
@@ -215,6 +216,7 @@ font-weight: 600;
 font-size: 0.7rem;
 border: 1px solid #39796b;
 background-color: transparent;
+cursor: pointer;
 
 &:hover {
   background-color: #39796b;

@@ -117,7 +117,7 @@ const BtnReturn = styled.button`
   border: 1px solid #39796b;
   background-color: transparent;
   font-family: 'IBM Plex Sans KR', sans-serif;
-
+  cursor: pointer;
 &:hover {
   background-color: #39796b;
   color: white;
