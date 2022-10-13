@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+import DevicesSharpIcon from '@mui/icons-material/DevicesSharp';
+
 function Header() {
   const navigate = useNavigate();
 
@@ -9,9 +12,9 @@ function Header() {
     <HeadContainer>
       <HeadLeft onClick={()=>{
                       navigate("/")
-                    }}>🏠 W4:Todo-list</HeadLeft>
+                    }}><HomeSharpIcon /> W4:Todo-list</HeadLeft>
       <HeadRight1>joyfive
-      <HeadRight2 onClick={() => window.open('https://github.com/joyfive', '_blank')} className="head-ico">💻</HeadRight2>
+      <HeadRight2 onClick={() => window.open('https://github.com/joyfive', '_blank')} className="head-ico"><DevicesSharpIcon /></HeadRight2>
       </HeadRight1>
     </HeadContainer>
   );

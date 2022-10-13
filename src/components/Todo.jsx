@@ -2,6 +2,10 @@ import React from "react";
 import { Link as ReactRouterDomLink } from "react-router-dom";
 import styled from "styled-components";
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CloseSharpIcon from '@mui/icons-material/CloseSharp';
+
 
 
 function Todo({ todo, onEdit, onDelete }) {
@@ -14,12 +18,12 @@ function Todo({ todo, onEdit, onDelete }) {
                 <BtnSet>
                   <Btn 
                   onClick={() => onEdit(todo.id)}>
-                  {todo.isDone ? "⬅️" : "➡️"}  
+                  {todo.isDone ? <ArrowBackIcon /> : <ArrowForwardIcon />}  
                   </Btn>
                   <Btn 
                   className="btn del"
                   onClick={() => onDelete(todo.id)}
-                  >✖️ 
+                  ><CloseSharpIcon /> 
                   </Btn>
                 </BtnSet>
               </Title>
