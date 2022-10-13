@@ -70,14 +70,17 @@ export default List;
 const ListWrap = styled.article`
   margin: 10px;
   width: 320px;
+  max-height: 560px;
   min-height: 560px;
   background-color: #e2d3c4;
   border: 1px solid #39796b;
   padding: 5px;
   overflow: auto;
+
   @media screen and (max-width: 900px) {
         min-height: 100px;
         margin: 0 auto;
+        max-height: 100%;
     }
   
 `
