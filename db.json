@@ -1,17 +1,12 @@
 {
   "todos": [
     {
-      "id": "1",
-      "title": "리덕스 101 강의듣기",
-      "body": "노마드 코더의 강의를 들어봅시다",
+      "id": "52aacf0c-6863-48dd-86bc-e58b12d901d8",
+      "title": "qweqwe",
+      "body": "asdasd",
       "isDone": true
-    },
-    {
-      "id": "2",
-      "title": "리덕스로 수정해보기",
-      "body": "기능을 개발해보자",
-      "isDone": false
     }
+  
   ],
   "todo": {
     "id": "0",

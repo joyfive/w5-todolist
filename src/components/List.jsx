@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, switchStatus } from "../redux/modules/todos.js";
+import { __getTodos, __deleteTodo, __updateStatus } from "../redux/modules/todos.js";
 import styled from "styled-components";
 import Todo from './Todo'
 
 
 const List = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.todos);
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
 
   const onDelete = (id) => {
-    dispatch(deleteTodo(id));
+    dispatch(__deleteTodo(id));
   };
 
   const onStatus = (id) => {
-    dispatch(switchStatus(id));
+    let findTodo = Object.assign({}, todos.find((todo) => {
+      return todo.id === id;
+    }))
+
+    findTodo.isDone ? findTodo.isDone = false : findTodo.isDone = true;
+
+    dispatch(__updateStatus(findTodo));
   };
+
+  // ----------------------------------------------------------------------------------
+
+  if (isLoading) {
+    return <div>처리 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <ListCont>
@@ -26,11 +46,11 @@ const List = () => {
             if (!todo.isDone) {
               return (
                 <Todo
-                todo={todo}
-                key={todo.id}
-                todos={todos}
-                onDelete={onDelete}
-                onEdit={onStatus}
+                  todo={todo}
+                  key={todo.id}
+                  todos={todos}
+                  onDelete={onDelete}
+                  onEdit={onStatus}
                 />
               );
             } else {
@@ -38,29 +58,29 @@ const List = () => {
             }
           })}
         </ListWrap>
-        </div>
+      </div>
 
-        <div>
+      <div>
         <ListTit>완료한 할일.</ListTit>
         <ListWrap>
-        {todos.map((todo) => {
+          {todos.map((todo) => {
             if (todo.isDone) {
               return (
                 <Todo
-                todo={todo}
-                key={todo.id}
-                todos={todos}
-                onDelete={onDelete}
-                onEdit={onStatus}
+                  todo={todo}
+                  key={todo.id}
+                  todos={todos}
+                  onDelete={onDelete}
+                  onEdit={onStatus}
                 />
               )
             } else {
               return null;
             }
           })}
-         
+
         </ListWrap>
-        </div>
+      </div>
     </ListCont>
   );
 }

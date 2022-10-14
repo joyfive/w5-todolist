@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from '../redux/modules/todos';
+import { __addTodo } from '../redux/modules/todos';
 import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 
@@ -48,7 +48,7 @@ const Form = () => {
     if (validateForm()) {
       if (todo.title.trim() === "" || todo.body.trim() === "")
         return;
-      dispatch(addTodo({ ...todo, id: uuidv4() }));
+      dispatch(__addTodo({ ...todo, id: uuidv4() }));
 
       onReset();
     };
