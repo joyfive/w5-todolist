@@ -35,6 +35,7 @@ function Todo({ todo, onEdit, onDelete }) {
 };
 export default Todo;
 
+`
 const Todobox = styled.article`
   margin: 10px;
   padding: 20px;
