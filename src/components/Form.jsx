@@ -5,98 +5,98 @@ import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 
 const Form = () => {
-    const dispatch = useDispatch();
-    const [titError, setTitError] = useState('');
-    const [bodyError, setBodyError] = useState('');
-    const [todo, setTodo] = useState({
-      id: uuidv4(),
+  const dispatch = useDispatch();
+  const [titError, setTitError] = useState('');
+  const [bodyError, setBodyError] = useState('');
+  const [todo, setTodo] = useState({
+    id: uuidv4(),
+    title: "",
+    body: "",
+    isDone: false,
+  });
+
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    setTodo({ ...todo, [name]: value });
+  };
+
+  const onReset = (e) => {
+    setTodo({
       title: "",
       body: "",
-      isDone: false,
     });
-  
-    const onChange = (event) => {
-        const { name, value } = event.target;
-        setTodo({ ...todo, [name]: value });
-    };
+    resetErrors();
+  };
 
-    const onReset = (e) => {
-        setTodo({
-        title: "",
-        body: "",
-        });
-        resetErrors();
-    };
-    
-    const validateForm = () => {
-      resetErrors();
-      let validated = true;
-      if (!todo.title) {
-        setTitError('제목을 입력해주세요.');
-        validated = false;
-      }
-      if (!todo.body) {
-        setBodyError('내용을 입력해주세요.');
-        validated = false;
-      }
-      return validated;
+  const validateForm = () => {
+    resetErrors();
+    let validated = true;
+    if (!todo.title) {
+      setTitError('제목을 입력해주세요.');
+      validated = false;
     }
+    if (!todo.body) {
+      setBodyError('내용을 입력해주세요.');
+      validated = false;
+    }
+    return validated;
+  }
 
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        if (validateForm()) {
-          if (todo.title.trim() === "" || todo.body.trim() === "") 
-          return;
-          dispatch(addTodo({ ...todo, id: uuidv4() }));
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      if (todo.title.trim() === "" || todo.body.trim() === "")
+        return;
+      dispatch(addTodo({ ...todo, id: uuidv4() }));
 
-          onReset();
+      onReset();
     };
   }
 
-    const resetErrors = () => {
-      setTitError('');
-      setBodyError('');
-    }
+  const resetErrors = () => {
+    setTitError('');
+    setBodyError('');
+  }
 
   return (
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
-          <InputVali>
-            <InputBox
-              type="text"
-              name="title"
-              value={todo.title}
-              onChange={onChange}
-              placeholder='제목'
-            />
-            <Valitext>{titError}</Valitext>
-          </InputVali>
-          <InputVali>
-            <InputBox
-              type="text"
-              name="body"
-              value={todo.body}
-              onChange={onChange}
-              className="input-txt"
-              placeholder='내용'
-            />
-            <Valitext>{bodyError}</Valitext>
-          </InputVali>
-          
-        </InputContainer>
-        
-        
-        
-        
-        <BtnBox>
-          <BtnAdd type="submit" form="add" className="form-btn" >추가하기</BtnAdd>
-          <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
-        </BtnBox>
+        <InputVali>
+          <InputBox
+            type="text"
+            name="title"
+            value={todo.title}
+            onChange={onChange}
+            placeholder='제목'
+          />
+          <Valitext>{titError}</Valitext>
+        </InputVali>
+        <InputVali>
+          <InputBox
+            type="text"
+            name="body"
+            value={todo.body}
+            onChange={onChange}
+            className="input-txt"
+            placeholder='내용'
+          />
+          <Valitext>{bodyError}</Valitext>
+        </InputVali>
+
+      </InputContainer>
+
+
+
+
+      <BtnBox>
+        <BtnAdd type="submit" form="add" className="form-btn" >추가하기</BtnAdd>
+        <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
+      </BtnBox>
     </FormBox>
   );
 };
-  
+
 
 // function getCurrentState () {}
 // export default connect(getCurrentState) (Form);
