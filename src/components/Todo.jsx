@@ -24,7 +24,7 @@ function Todo({ todo, onEdit, onDelete }) {
           </BtnSet>
         </Title>
         <Hr />
-        <Body>{todo.body}</Body>
+        <Body>작성자: {todo.writer}</Body>
 
       </Container>
       <StyledLink to={`/${todo.id}`} style={{ textDecoration: 'none' }} key={todo.id}> view more </StyledLink>

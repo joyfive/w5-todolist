@@ -1,26 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const initialState = {
   todos: [
     {
-      id: "1",
-      title: "리덕스 101 강의듣기",
-      body: "노마드 코더의 강의를 들어봅시다",
+      id: "0",
+      title: "sample",
+      body: "sample",
+      writer: "sample",
       isDone: true,
-    },
-    {
-      id: "2",
-      title: "리덕스로 수정해보기",
-      body: "기능을 개발해보자",
-      isDone: false,
     },
   ],
   todo: {
     id: "0",
     title: "",
     body: "",
+    writer: "test",
     isDone: false,
   }
 };
@@ -41,7 +36,8 @@ export const __addTodo = createAsyncThunk(
   "todos/addTodo",//type
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("http://localhost:3001/todos", payload);
+      await axios.post("http://localhost:3001/todos", payload);
+      const data = await axios.get("http://localhost:3001/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -69,6 +65,31 @@ export const __updateStatus = createAsyncThunk(
       await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
       const data = await axios.get("http://localhost:3001/todos");
       return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateContent = createAsyncThunk(
+  "todos/updateContent",//type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
+      const data = await axios.get(`http://localhost:3001/todos/${payload.id}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getID = createAsyncThunk(
+  "todos/getID",//type
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/todos/${payload}`);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -105,12 +126,14 @@ export const todosSlice = createSlice({
       state.isLoading = true;
     },
     [__addTodo.fulfilled]: (state, action) => {
+      state.todos = action.payload;
       state.isLoading = false;
-      state.todos.push(action.payload);
+      state.isSuccess = true;
     },
     [__addTodo.rejected]: (state, action) => {
-      state.isLoading = false;
       state.error = action.payload;
+      state.isLoading = false;
+      state.isSuccess = false;
     },
     //-__deleteTodo-
     [__deleteTodo.pending]: (state) => {
@@ -136,6 +159,31 @@ export const todosSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    //-__updateContent-
+    [__updateContent.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateContent.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todo = action.payload;
+    },
+    [__updateContent.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //-__getID
+    [__getID.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getID.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todo = action.payload;
+    },
+    [__getID.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
   },
 
 });

@@ -1,17 +1,31 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { __addTodo } from '../redux/modules/todos';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __addTodo, __getTodos } from '../redux/modules/todos';
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
+  const { isSuccess, error, todos } = useSelector((state) => state.todos);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [titError, setTitError] = useState('');
-  const [bodyError, setBodyError] = useState('');
+
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
+
+
+  //id최대값
+  const getMaxId = () => {
+    let stateIdArr = todos.map(element => {
+      return Number(element.id)
+    });
+    return Math.max(...stateIdArr);
+  }
+
   const [todo, setTodo] = useState({
-    id: uuidv4(),
     title: "",
     body: "",
+    writer: "",
     isDone: false,
   });
 
@@ -20,48 +34,54 @@ const Form = () => {
     setTodo({ ...todo, [name]: value });
   };
 
-  const onReset = (e) => {
+  const onReset = () => {
     setTodo({
       title: "",
       body: "",
+      writer: "",
     });
-    resetErrors();
   };
 
   const validateForm = () => {
-    resetErrors();
     let validated = true;
-    if (!todo.title) {
-      setTitError('제목을 입력해주세요.');
-      validated = false;
-    }
-    if (!todo.body) {
-      setBodyError('내용을 입력해주세요.');
+    if (todo.body === "" || todo.title === "" || todo.writer === "") {
       validated = false;
     }
     return validated;
   }
 
-
   const onSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      if (todo.title.trim() === "" || todo.body.trim() === "")
+      if (todo.title.trim() === "" || todo.body.trim() === "" || todo.writer.trim() === "")
         return;
-      dispatch(__addTodo({ ...todo, id: uuidv4() }));
 
+      dispatch(__addTodo({ id: (getMaxId() + 1), ...todo }));
       onReset();
     };
   }
 
-  const resetErrors = () => {
-    setTitError('');
-    setBodyError('');
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/todoList");
+    } else {
+      console.log(error)
+    }
+  }, [isSuccess]);
 
   return (
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
+        <InputVali>
+          <InputBox
+            type="text"
+            name="writer"
+            value={todo.writer}
+            onChange={onChange}
+            placeholder='작성자'
+          />
+          <Valitext>{todo.writer === "" ? '작성자를 입력해주세요.' : ""}</Valitext>
+        </InputVali>
         <InputVali>
           <InputBox
             type="text"
@@ -70,7 +90,7 @@ const Form = () => {
             onChange={onChange}
             placeholder='제목'
           />
-          <Valitext>{titError}</Valitext>
+          <Valitext>{todo.title === "" ? '제목을 입력해주세요.' : ""}</Valitext>
         </InputVali>
         <InputVali>
           <InputBox
@@ -81,7 +101,7 @@ const Form = () => {
             className="input-txt"
             placeholder='내용'
           />
-          <Valitext>{bodyError}</Valitext>
+          <Valitext>{todo.body === "" ? '내용을 입력해주세요.' : ""}</Valitext>
         </InputVali>
 
       </InputContainer>
@@ -90,7 +110,7 @@ const Form = () => {
 
 
       <BtnBox>
-        <BtnAdd type="submit" form="add" className="form-btn" >추가하기</BtnAdd>
+        <BtnAdd type="submit" form="add" className="form-btn" >작성하기</BtnAdd>
         <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
       </BtnBox>
     </FormBox>
@@ -112,15 +132,12 @@ const FormBox = styled.form`
   flex-direction: column;
   @media screen and (max-width: 900px) {
     }
-
-
-  
 `;
 
 const InputContainer = styled.section`
 width: 100%;
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: space-between;
 @media screen and (max-width: 900px) {
   display: block;
