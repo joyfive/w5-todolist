@@ -4,7 +4,6 @@ import { deleteTodo, switchStatus } from "../redux/modules/todos.js";
 import styled from "styled-components";
 import Todo from './Todo'
 
-
 const List = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
