@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getID } from "../redux/modules/todos";
+import { getID } from "../redux/modules/todosSlice";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";

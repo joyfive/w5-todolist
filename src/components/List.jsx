@@ -1,13 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, switchStatus } from "../redux/modules/todos.js";
+import { getId, deleteTodo, switchStatus } from "../redux/modules/todosSlice";
 import styled from "styled-components";
 import Todo from './Todo'
 
 const List = () => {
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos.todos);
-
   const onDelete = (id) => {
     dispatch(deleteTodo(id));
   };

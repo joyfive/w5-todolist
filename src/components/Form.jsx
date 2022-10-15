@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from '../redux/modules/todos';
+import { useSelector } from "react-redux";
+import { addTodo } from '../redux/modules/todosSlice';
+import axios from "axios"; 
 import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 
 const Form = () => {
     const dispatch = useDispatch();
+    const isSuccess = useSelector((state) => state.todos.isSuccess);
+
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
+
     const [todo, setTodo] = useState({
-      id: uuidv4(),
       title: "",
       body: "",
-      isDone: false,
+      writer: "",
     });
-  
+
+    useEffect(() => {
+      if (!isSuccess) return;
+      if (isSuccess) 
+      return () => dispatch(onReset());
+    }, [dispatch, isSuccess]);
+
     const onChange = (event) => {
         const { name, value } = event.target;
-        setTodo({ ...todo, [name]: value });
+        setTodo({ 
+          ...todo, 
+          id: uuidv4(),
+          [name]: value,
+          isDone: false, });
     };
 
     const onReset = (e) => {
@@ -48,7 +62,9 @@ const Form = () => {
         if (validateForm()) {
           if (todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          dispatch(addTodo({ ...todo, id: uuidv4() }));
+          
+          axios.post("http://localhost:3001/todos", todo);
+          dispatch(addTodo(todo));
 
           onReset();
     };
@@ -65,10 +81,22 @@ const Form = () => {
           <InputVali>
             <InputBox
               type="text"
+              name="writer"
+              value={todo.writer}
+              onChange={onChange}
+              placeholder='작성자명 (5자 이내)'
+              maxLength={5}
+            />
+            <Valitext>{titError}</Valitext>
+          </InputVali>
+          <InputVali>
+            <InputBox
+              type="text"
               name="title"
               value={todo.title}
               onChange={onChange}
-              placeholder='제목'
+              placeholder='제목 (30자 이내)'
+              maxLength={30}
             />
             <Valitext>{titError}</Valitext>
           </InputVali>
@@ -79,7 +107,8 @@ const Form = () => {
               value={todo.body}
               onChange={onChange}
               className="input-txt"
-              placeholder='내용'
+              placeholder='내용 (300자 이내)'
+              maxLength={300}
             />
             <Valitext>{bodyError}</Valitext>
           </InputVali>
