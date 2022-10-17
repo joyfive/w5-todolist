@@ -20,7 +20,7 @@ const onDetial = () => {
               </Title>
               <Hr />
               <BodyWrap>
-              <Body>작성자: {todo.writer}</Body>
+              <Body>@{todo.writer}</Body>
               <BtnSet>
                   <Btn 
                   onClick={() => onEdit(todo.id)}>
@@ -78,21 +78,21 @@ const Title = styled.div`
   const Body = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
   font-weight: 300;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #00251a;
   background-color: transparent;
   margin: 15px 5px;
+  line-height: 0.8;
 `
 
 const Btn = styled.button`
   width: 30px;
   height: 30px;
-  text-align: center;
   background-color:transparent;
   border: 0;
   border-radius: 20px;
-  font-size: 1.1rem;
-  line-height: 2.3;
+  font-size: 1.2rem;
+  line-height: 1.6;
   margin: 5px;
   cursor: pointer;
   

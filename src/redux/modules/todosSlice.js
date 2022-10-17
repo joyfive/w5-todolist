@@ -109,7 +109,8 @@ export const updateTodoThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
-      return thunkAPI.fulfillWithValue(payload);
+      const data = await axios.get(`http://localhost:3001/todos/${payload.id}`);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
     }

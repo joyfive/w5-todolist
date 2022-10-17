@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import Header from "../components/Header";
-import Form from "../components/Form";
-import List from "../components/List";
+import Form from "./Form";
+import List from "./List";
 import Footer from "../components/Footer";
 
 

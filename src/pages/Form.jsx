@@ -5,6 +5,9 @@ import { addTodoThunk } from '../redux/modules/todosSlice';
 import axios from "axios"; 
 import styled from "styled-components";
 
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,8 +22,8 @@ const Form = () => {
 
     const navigate = useNavigate();
 
-    const onList = () => {
-      navigate(`/list`)
+    const goList = () => {
+      navigate(`/list`);
     }
     
 
@@ -78,13 +81,11 @@ const Form = () => {
         if (validateForm()) {
           if (todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          
           axios.post("http://localhost:3001/todos", todo);
           dispatch(
             addTodoThunk({ id: Date.now()+Math.random(), ...todo }),
             onReset(),
-            onList()
-            )
+            goList())
     };
   }
 
@@ -95,6 +96,8 @@ const Form = () => {
     }
 
   return (
+    <>
+    <Header />
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
           <InputVali>
@@ -142,6 +145,8 @@ const Form = () => {
           <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
         </BtnBox>
     </FormBox>
+    <Footer />
+    </>
   );
 };
   
