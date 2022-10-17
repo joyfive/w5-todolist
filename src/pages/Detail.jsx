@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { getIdThunk } from "../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getID } from "../redux/modules/todos";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -14,21 +14,24 @@ const Detail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getID(id));
+    dispatch(getIdThunk(id));
   }, [dispatch, id]);
-console.log(todoItem)
+
  return (
         <Layout>
             <Header />
             <DetailBox>
               <TitBox>
                 <Title>{todoItem.title}</Title>
-                <Id>ID : {todoItem.id}</Id>
+                <Id>
+                  <div>Writer : {todoItem.writer}</div>
+                  <div> POST ID : {todoItem.id}</div>
+                </Id>
               </TitBox>
                 <Body>{todoItem.body}</Body>
                 <BtnReturn
                     onClick={()=>{
-                      navigate("/")
+                      navigate("/list")
                     }}
                 >
                   돌아가기
@@ -86,10 +89,16 @@ const Title = styled.h1`
 `;
 
 const Id = styled.p`
+    display: flex;
+    justify-content: space-between;
     font-size: 0.8rem;
     font-weight: 300;
     line-height: 0.3;
     background-color: transparent;
+
+    div {
+      background-color: transparent;
+    }
     @media screen and (max-width: 900px) {
         font-size: 0.7rem;
     }

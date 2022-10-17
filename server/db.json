@@ -1,0 +1,10 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "body": "json-server를 배워봅시다.",
+      "isDone": false
+    }
+  ]
+}

@@ -1,27 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from '../redux/modules/todos';
-import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from "react-redux";
+import { addTodoThunk } from '../redux/modules/todosSlice';
+import axios from "axios"; 
 import styled from "styled-components";
+
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Form = () => {
     const dispatch = useDispatch();
+    const isSuccess = useSelector((state) => state.todos.isSuccess);
+    const [writerError, setWriterError] = useState('');
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
+
+    const navigate = useNavigate();
+
+    const onList = () => {
+      navigate(`/list`)
+    }
+    
+
     const [todo, setTodo] = useState({
-      id: uuidv4(),
       title: "",
       body: "",
-      isDone: false,
+      writer: "",
     });
-  
+
+    useEffect(() => {
+      if (!isSuccess) return;
+      if (isSuccess) 
+      return (onReset, todo) => dispatch(onReset(todo));
+    }, [dispatch, isSuccess]);
+
     const onChange = (event) => {
         const { name, value } = event.target;
-        setTodo({ ...todo, [name]: value });
+        setTodo({ 
+          ...todo, 
+          id: Date.now() + Math.random(),
+          [name]: value,
+          isDone: false, });
     };
 
     const onReset = (e) => {
         setTodo({
+        writer: "",
         title: "",
         body: "",
         });
@@ -31,6 +57,10 @@ const Form = () => {
     const validateForm = () => {
       resetErrors();
       let validated = true;
+      if (!todo.writer) {
+        setWriterError('작성자를 입력해주세요.')
+        validated = false;
+      }
       if (!todo.title) {
         setTitError('제목을 입력해주세요.');
         validated = false;
@@ -48,13 +78,18 @@ const Form = () => {
         if (validateForm()) {
           if (todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          dispatch(addTodo({ ...todo, id: uuidv4() }));
-
-          onReset();
+          
+          axios.post("http://localhost:3001/todos", todo);
+          dispatch(
+            addTodoThunk({ id: Date.now()+Math.random(), ...todo }),
+            onReset(),
+            onList()
+            )
     };
   }
 
     const resetErrors = () => {
+      setWriterError('')
       setTitError('');
       setBodyError('');
     }
@@ -65,10 +100,22 @@ const Form = () => {
           <InputVali>
             <InputBox
               type="text"
+              name="writer"
+              value={todo.writer}
+              onChange={onChange}
+              placeholder='작성자명 (5자 이내)'
+              maxLength={5}
+            />
+            <Valitext>{writerError}</Valitext>
+          </InputVali>
+          <InputVali>
+            <InputBox
+              type="text"
               name="title"
               value={todo.title}
               onChange={onChange}
-              placeholder='제목'
+              placeholder='제목 (30자 이내)'
+              maxLength={30}
             />
             <Valitext>{titError}</Valitext>
           </InputVali>
@@ -79,7 +126,8 @@ const Form = () => {
               value={todo.body}
               onChange={onChange}
               className="input-txt"
-              placeholder='내용'
+              placeholder='내용 (300자 이내)'
+              maxLength={300}
             />
             <Valitext>{bodyError}</Valitext>
           </InputVali>
