@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 const Form = () => {
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.todos.isSuccess);
+
     const [writerError, setWriterError] = useState('');
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
@@ -45,7 +46,8 @@ const Form = () => {
           ...todo, 
           id: Date.now() + Math.random(),
           [name]: value,
-          isDone: false, });
+          isDone: false,
+          isEdit: false, });
     };
 
     const onReset = (e) => {
@@ -79,7 +81,7 @@ const Form = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-          if (todo.title.trim() === "" || todo.body.trim() === "") 
+          if (todo.writer.trim() === "" || todo.title.trim() === "" || todo.body.trim() === "") 
           return;
           axios.post("http://localhost:3001/todos", todo);
           dispatch(
