@@ -1,19 +1,47 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getId, deleteTodo, switchStatus } from "../redux/modules/todosSlice";
+import { getTodosThunk, deleteTodoThunk, switchStatusThunk } from "../redux/modules/todosSlice";
 import styled from "styled-components";
 import Todo from './Todo'
 
 const List = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.todos);
-  const onDelete = (id) => {
-    dispatch(deleteTodo(id));
+  const { isLoading, error, todos } = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    dispatch(getTodosThunk());
+  }, [dispatch]);
+
+    const onStatus = (id) => {
+      Object.assign({}, todos.find((todo) => {
+        return todo.id === id;
+      }))
+
+    dispatch(switchStatusThunk(id));
   };
 
-  const onStatus = (id) => {
-    dispatch(switchStatus(id));
+  const onDelete = (id) => {
+    dispatch(deleteTodoThunk(id));
   };
+
+
+  useEffect(() => {
+    dispatch(getTodosThunk());
+  }, [dispatch]);
+
+  if (todos.length === 0)
+  return (
+    <div>
+      <ListTit>등록된 할일이 없습니다.</ListTit>
+    </div>
+  );
+  if (isLoading) {
+    return <div>처리 중....</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <ListCont>

@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addTodo } from '../redux/modules/todosSlice';
 import axios from "axios"; 
-import { v4 as uuidv4 } from 'uuid';
 import styled from "styled-components";
 
 const Form = () => {
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.todos.isSuccess);
-
+    const [writerError, setWriterError] = useState('');
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
 
@@ -22,20 +21,21 @@ const Form = () => {
     useEffect(() => {
       if (!isSuccess) return;
       if (isSuccess) 
-      return () => dispatch(onReset());
+      return (onReset, todo) => dispatch(onReset(todo));
     }, [dispatch, isSuccess]);
 
     const onChange = (event) => {
         const { name, value } = event.target;
         setTodo({ 
           ...todo, 
-          id: uuidv4(),
+          id: Date.now() + Math.random(),
           [name]: value,
           isDone: false, });
     };
 
     const onReset = (e) => {
         setTodo({
+        writer: "",
         title: "",
         body: "",
         });
@@ -45,6 +45,10 @@ const Form = () => {
     const validateForm = () => {
       resetErrors();
       let validated = true;
+      if (!todo.writer) {
+        setWriterError('작성자를 입력해주세요.')
+        validated = false;
+      }
       if (!todo.title) {
         setTitError('제목을 입력해주세요.');
         validated = false;
@@ -64,13 +68,13 @@ const Form = () => {
           return;
           
           axios.post("http://localhost:3001/todos", todo);
-          dispatch(addTodo(todo));
-
-          onReset();
+          dispatch(addTodo({ id: Date.now()+Math.random(), ...todo }));
+          dispatch(onReset())
     };
   }
 
     const resetErrors = () => {
+      setWriterError('')
       setTitError('');
       setBodyError('');
     }
@@ -87,7 +91,7 @@ const Form = () => {
               placeholder='작성자명 (5자 이내)'
               maxLength={5}
             />
-            <Valitext>{titError}</Valitext>
+            <Valitext>{writerError}</Valitext>
           </InputVali>
           <InputVali>
             <InputBox

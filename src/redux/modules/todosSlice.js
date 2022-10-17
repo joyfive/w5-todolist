@@ -29,66 +29,6 @@ import axios from "axios";
 //   }
 // };
 
-export const addTodoThunk = createAsyncThunk(
-  "ADD_TODO",
-  async (payload, thunkAPI) => {
-    try {
-      const {data} = await axios.post('http://localhost:3001/todos', payload);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-    }
-);
-
-export const deleteTodoThunk = createAsyncThunk(
-  "DELETE_TODO",
-  async (payload, thunkAPI) => {
-    try {
-      axios.delete(`http://localhost:3001/todos/${payload}`);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.code);
-      }
-    }
-);
-
-export const switchStatusThunk = createAsyncThunk(
-  "SWITCH_STATUS",
-  async (payload, thunkAPI) => {
-    try {
-      axios.patch(`http://localhost:3001/todos/${payload.id}/switch`, payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.code);
-    }
-  }
-);
-
-export const getIdThunk = createAsyncThunk(
-  "GET_ID",
-  async (payload, thunkAPI) => {
-    try {
-      const { data } = await axios.get(`http://localhost:3001/todos${payload}`);
-      return thunkAPI.fulfillWithValue(data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.code);
-    }
-  }
-);
-
-export const updateTodoThunk = createAsyncThunk(
-  "UPDATE_TODO",
-  async (payload, thunkAPI) => {
-    try {
-      axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.code);
-    }
-  }
-);
-
 const initialState = {
   todos: [],
   todo: {
@@ -102,6 +42,78 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
 };
+
+export const addTodoThunk = createAsyncThunk(
+  "todos/addTodo",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post('http://localhost:3001/todos', payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+    }
+);
+
+export const getTodosThunk = createAsyncThunk(
+  "todos/getTodos",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get('http://localhost:3001/todos/');
+      return thunkAPI.fulfillWithValue(data);
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.code);
+    }
+  }
+);
+
+export const deleteTodoThunk = createAsyncThunk(
+  "todos/deleteTodo",
+  async (payload, thunkAPI) => {
+    try {
+      axios.delete(`http://localhost:3001/todos/${payload}`);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+      }
+    }
+);
+
+export const switchStatusThunk = createAsyncThunk(
+  "todos/switchStatus",
+  async (payload, thunkAPI) => {
+    try {
+      axios.patch(`http://localhost:3001/todos/${payload.id}/switch`, payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+    }
+  }
+);
+
+export const getIdThunk = createAsyncThunk(
+  "todos/getID",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/todos${payload}`);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+    }
+  }
+);
+
+export const updateTodoThunk = createAsyncThunk(
+  "todos/updateTodo",
+  async (payload, thunkAPI) => {
+    try {
+      axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
+    }
+  }
+);
 
 export const todosSlice = createSlice({
   name: "todos",
@@ -158,6 +170,18 @@ export const todosSlice = createSlice({
       state.error = action.payload;
     },
     [getIdThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+
+    [getTodosThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [getTodosThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [getTodosThunk.pending]: (state) => {
       state.isLoading = true;
     },
 
