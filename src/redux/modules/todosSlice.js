@@ -61,8 +61,8 @@ export const getTodosThunk = createAsyncThunk(
     try {
       const { data } = await axios.get('http://localhost:3001/todos/');
       return thunkAPI.fulfillWithValue(data);
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.code);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.code);
     }
   }
 );
@@ -83,10 +83,11 @@ export const switchStatusThunk = createAsyncThunk(
   "todos/switchStatus",
   async (payload, thunkAPI) => {
     try {
-      axios.patch(`http://localhost:3001/todos/${payload.id}/switch`, payload);
-      return thunkAPI.fulfillWithValue(payload);
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
+      const data = await axios.get("http://localhost:3001/todos");
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.code);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -120,8 +121,10 @@ export const todosSlice = createSlice({
 
   initialState,
   reducers: {
-    clearTodo: (state, action) => {
-      state.isSuccess = false;
+    getID(state, action) {
+      state.todo = state.todos.find((todo) => {
+        return todo.id === action.payload;
+      })
     },
   },
 
@@ -199,6 +202,18 @@ export const todosSlice = createSlice({
       state.isSuccess = false;
     },
 
+    [switchStatusThunk.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [switchStatusThunk.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [switchStatusThunk.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     [deleteTodoThunk.fulfilled]: (state, action) => {
       const target = state.todos.findIndex(
         (comment) => comment.id === action.payload
@@ -206,7 +221,7 @@ export const todosSlice = createSlice({
       state.todos.splice(target, 1);
     },
     [deleteTodoThunk.pending]: () => {},
-    [deleteTodoThunk.pending]: () => {},
+    [deleteTodoThunk.rejected]: () => {},
 
     [updateTodoThunk.fulfilled]: (state, action) => {
       state.isLoading = false;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { addTodo } from '../redux/modules/todosSlice';
+import { addTodoThunk } from '../redux/modules/todosSlice';
 import axios from "axios"; 
 import styled from "styled-components";
 
@@ -68,7 +68,7 @@ const Form = () => {
           return;
           
           axios.post("http://localhost:3001/todos", todo);
-          dispatch(addTodo({ id: Date.now()+Math.random(), ...todo }));
+          dispatch(addTodoThunk({ id: Date.now()+Math.random(), ...todo }));
           dispatch(onReset())
     };
   }

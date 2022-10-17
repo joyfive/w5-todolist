@@ -12,13 +12,17 @@ const List = () => {
     dispatch(getTodosThunk());
   }, [dispatch]);
 
-    const onStatus = (id) => {
-      Object.assign({}, todos.find((todo) => {
-        return todo.id === id;
-      }))
+  const onStatus = (id) => {
+    let findTodo = Object.assign({}, todos.find((todo) => {
+      return todo.id === id;
+    }))
 
-    dispatch(switchStatusThunk(id));
+    findTodo.isDone ? findTodo.isDone = false : findTodo.isDone = true;
+
+    dispatch(switchStatusThunk(findTodo));
   };
+
+
 
   const onDelete = (id) => {
     dispatch(deleteTodoThunk(id));
