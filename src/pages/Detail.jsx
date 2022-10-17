@@ -6,6 +6,7 @@ import { __getID, __updateContent } from "../redux/modules/todos.js";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Comment from "../components/Comment";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -32,49 +33,52 @@ const Detail = () => {
   return (
     <Layout>
       <Header />
-      <DetailBox>
-        <TitBox>
-          <Title>{todoItem.title}</Title>
-          <Id>ID : {todoItem.id}</Id>
-        </TitBox>
-        {!mod ?
-          <Body>{todoItem.body}</Body>
-          :
-          <ModBody
-            name="body"
-            rows="10"
-            maxLength={200}
-            value={updatedTodo}
-            onChange={(event) => {
-              setUpdatedTodo(event.target.value);
-            }} />
-
-        }
-        <BtnBox>
-          <BtnReturn
-            onClick={() => {
-              navigate("/todoList")
-            }}>
-            이전으로
-          </BtnReturn>
-
+      <DetailWrap>
+        <DetailBox>
+          <TitBox>
+            <Title>{todoItem.title}</Title>
+            <Id>ID : {todoItem.id}</Id>
+          </TitBox>
           {!mod ?
-            <BtnReturn onClick={isUpdate}>수정하기</BtnReturn>
+            <Body>{todoItem.body}</Body>
             :
+            <ModBody
+              name="body"
+              rows="10"
+              maxLength={200}
+              value={updatedTodo}
+              onChange={(event) => {
+                setUpdatedTodo(event.target.value);
+              }} />
+
+          }
+          <BtnBox>
             <BtnReturn
               onClick={() => {
-                const obj = {
-                  ...todoItem,
-                  body: updatedTodo
-                }
-                dispatch(__updateContent(obj));
-                isUpdate();
+                navigate("/todoList")
               }}>
-              저장하기
+              이전으로
             </BtnReturn>
-          }
-        </BtnBox>
-      </DetailBox>
+
+            {!mod ?
+              <BtnReturn onClick={isUpdate}>수정하기</BtnReturn>
+              :
+              <BtnReturn
+                onClick={() => {
+                  const obj = {
+                    ...todoItem,
+                    body: updatedTodo
+                  }
+                  dispatch(__updateContent(obj));
+                  isUpdate();
+                }}>
+                저장하기
+              </BtnReturn>
+            }
+          </BtnBox>
+        </DetailBox>
+        <Comment detailConId={todoItem.id} />
+      </DetailWrap>
       <Footer />
     </Layout>
   );
@@ -100,6 +104,11 @@ const Layout = styled.div`
     padding: 0;
     
 `;
+const DetailWrap = styled.div`
+  width: 100%;
+  display : flex;
+  flex-direction : row;
+`
 
 const DetailBox = styled.div`
     width: 95%;

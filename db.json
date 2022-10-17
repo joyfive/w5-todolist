@@ -22,11 +22,27 @@
       "isDone": false
     }
   ],
-  "todo": {
-    "id": 0,
-    "title": "",
-    "body": "",
-    "writer": "test",
-    "isDone": false
-  }
+  "comments": [
+    {
+      "contentId": 2,
+      "writer": "test",
+      "body": "test",
+      "id": 1,
+      "isMod": false
+    },
+    {
+      "contentId": 2,
+      "writer": "123",
+      "body": "123",
+      "id": 2,
+      "isMod": false
+    },
+    {
+      "contentId": 2,
+      "writer": "sadf",
+      "body": "qwe",
+      "id": 3,
+      "isMod": false
+    }
+  ]
 }
