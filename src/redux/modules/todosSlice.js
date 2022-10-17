@@ -60,7 +60,7 @@ export const getTodosThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await axios.get('http://localhost:3001/todos/');
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.reverse());
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
     }
@@ -85,7 +85,7 @@ export const switchStatusThunk = createAsyncThunk(
     try {
       await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
       const data = await axios.get("http://localhost:3001/todos");
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data.data.reverse());
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -96,7 +96,7 @@ export const getIdThunk = createAsyncThunk(
   "todos/getID",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/todos${payload}`);
+      const { data } = await axios.get(`http://localhost:3001/todos/${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -166,7 +166,7 @@ export const todosSlice = createSlice({
   extraReducers: {
     [getIdThunk.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.todos = action.payload;
+      state.todo = action.payload
     },
     [getIdThunk.rejected]: (state, action) => {
       state.isLoading = false;

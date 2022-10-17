@@ -22,16 +22,12 @@ const List = () => {
     dispatch(switchStatusThunk(findTodo));
   };
 
-
-
   const onDelete = (id) => {
-    dispatch(deleteTodoThunk(id));
-  };
-
-
-  useEffect(() => {
-    dispatch(getTodosThunk());
-  }, [dispatch]);
+    if (window.confirm('삭제하시겠습니까?')) {
+      dispatch(deleteTodoThunk(id));
+      window.alert('삭제가 완료되었습니다.')
+    };
+  }
 
   if (todos.length === 0)
   return (

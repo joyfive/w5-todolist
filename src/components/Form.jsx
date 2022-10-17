@@ -5,12 +5,24 @@ import { addTodoThunk } from '../redux/modules/todosSlice';
 import axios from "axios"; 
 import styled from "styled-components";
 
+import { useNavigate } from 'react-router-dom';
+
+
+
+
 const Form = () => {
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.todos.isSuccess);
     const [writerError, setWriterError] = useState('');
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
+
+    const navigate = useNavigate();
+
+    const onList = () => {
+      navigate(`/list`)
+    }
+    
 
     const [todo, setTodo] = useState({
       title: "",
@@ -68,8 +80,11 @@ const Form = () => {
           return;
           
           axios.post("http://localhost:3001/todos", todo);
-          dispatch(addTodoThunk({ id: Date.now()+Math.random(), ...todo }));
-          dispatch(onReset())
+          dispatch(
+            addTodoThunk({ id: Date.now()+Math.random(), ...todo }),
+            onReset(),
+            onList()
+            )
     };
   }
 

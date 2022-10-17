@@ -1,33 +1,43 @@
 import React from "react";
-import { Link as ReactRouterDomLink } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import { GoTrashcan, GoDiffAdded, GoDiffRemoved } from "react-icons/go";
+import { GoTrashcan } from "react-icons/go";
+import { IoIosCheckmarkCircleOutline, IoIosCheckmarkCircle, IoIosArrowForward } from "react-icons/io";
 
 
 function Todo({ todo, onEdit, onDelete }) {
+const navigate = useNavigate();
+
+const onDetial = () => {
+  navigate(`/${todo.id}`)
+}
 
  return (
         <Todobox color={todo.isDone ? "#e2d3c4" : "#ffefe0"} border={todo.isDone ? "#ffefe0" : "#004d40;"}>
           <Container>
               <Title> 
                 <TitText>{todo.title}</TitText>
-                <BtnSet>
+              </Title>
+              <Hr />
+              <BodyWrap>
+              <Body>작성자: {todo.writer}</Body>
+              <BtnSet>
                   <Btn 
                   onClick={() => onEdit(todo.id)}>
-                  {todo.isDone ? <GoDiffRemoved style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} /> : <GoDiffAdded style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} />}  
+                  {todo.isDone ? <IoIosCheckmarkCircle style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} /> : <IoIosCheckmarkCircleOutline style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} />}  
                   </Btn>
                   <Btn 
                   className="btn del"
                   onClick={() => onDelete(todo.id)}
                   ><GoTrashcan style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} />
                   </Btn>
+                  <Btn
+                  onClick={onDetial}><IoIosArrowForward style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} /></Btn>
                 </BtnSet>
-              </Title>
-              <Hr />
-              <Body>{todo.body}</Body>
-              
+                
+                </BodyWrap>
           </Container>
-          <StyledLink to={`/${todo.id}`} style={{textDecoration: 'none'}}key={todo.id}> view more </StyledLink>
+          
 
       </Todobox>
       );
@@ -82,7 +92,7 @@ const Btn = styled.button`
   border: 0;
   border-radius: 20px;
   font-size: 1.1rem;
-  line-height: 1.6;
+  line-height: 2.3;
   margin: 5px;
   cursor: pointer;
   
@@ -96,27 +106,13 @@ const Hr = styled.hr`
   
 `
 
+const BodyWrap = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  background-color: transparent;
+`
+
 const BtnSet = styled.div`
     background-color: transparent;
-`
-const Link = ({children, ...props}) => {
-  return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
-}
-
-const StyledLink = styled(Link)`
-  display: block;
-  width: 100%;
-  height: 24px;
-  text-align: center;
-  font-size: 0.8rem;
-  line-height: 1.9;
-  border: 1px solid #39796b;
-  margin-top: 30px;
-  color: #39796b;
-  background-color: transparent;
-
-  &:hover{
-    background-color: #39796b;
-    color: #ffefe0;
-  }
 `
