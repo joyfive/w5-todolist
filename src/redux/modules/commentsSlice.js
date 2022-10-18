@@ -18,7 +18,7 @@ export const addCmtThunk = createAsyncThunk(
   "commnet/addcmt",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post('http://localhost:3001/cmts', payload);
+      const data = await axios.post('https://w5t2.herokuapp.com/cmts', payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -30,7 +30,7 @@ export const getCmtsThunk = createAsyncThunk(
   "commnet/getcmt",
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('http://localhost:3001/cmts/');
+      const { data } = await axios.get('https://w5t2.herokuapp.com/cmts/');
       return thunkAPI.fulfillWithValue(data.reverse());
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -42,7 +42,7 @@ export const deleteCmtThunk = createAsyncThunk(
   "comment/deletecmt",
   async (payload, thunkAPI) => {
     try {
-      axios.delete(`http://localhost:3001/cmts/${payload}`);
+      axios.delete(`https://w5t2.herokuapp.com/cmts/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -67,8 +67,8 @@ export const updateCmtThunk = createAsyncThunk(
   "comment/updatecmt",
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/cmts/${payload.id}`, payload);
-      const data = await axios.get(`http://localhost:3001/cmts/${payload.id}`);
+      await axios.patch(`https://w5t2.herokuapp.com/cmts/${payload.id}`, payload);
+      const data = await axios.get(`https://w5t2.herokuapp.com/cmts/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
