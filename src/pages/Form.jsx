@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addTodoThunk } from '../redux/modules/todosSlice';
-import axios from "axios"; 
+// import axios from "axios"; 
 import styled from "styled-components";
+
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 import { useNavigate } from 'react-router-dom';
 
@@ -13,15 +16,13 @@ import { useNavigate } from 'react-router-dom';
 const Form = () => {
     const dispatch = useDispatch();
     const isSuccess = useSelector((state) => state.todos.isSuccess);
+
     const [writerError, setWriterError] = useState('');
     const [titError, setTitError] = useState('');
     const [bodyError, setBodyError] = useState('');
 
     const navigate = useNavigate();
 
-    const onList = () => {
-      navigate(`/list`)
-    }
     
 
     const [todo, setTodo] = useState({
@@ -32,9 +33,10 @@ const Form = () => {
 
     useEffect(() => {
       if (!isSuccess) return;
-      if (isSuccess) 
+      if (isSuccess) navigate('/list');
+
       return (onReset, todo) => dispatch(onReset(todo));
-    }, [dispatch, isSuccess]);
+    }, [dispatch, isSuccess, navigate]);
 
     const onChange = (event) => {
         const { name, value } = event.target;
@@ -42,7 +44,8 @@ const Form = () => {
           ...todo, 
           id: Date.now() + Math.random(),
           [name]: value,
-          isDone: false, });
+          isDone: false,
+          isEdit: false, });
     };
 
     const onReset = (e) => {
@@ -76,14 +79,11 @@ const Form = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-          if (todo.title.trim() === "" || todo.body.trim() === "") 
+          if (todo.writer.trim() === "" || todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          
-          axios.post("http://localhost:3001/todos", todo);
           dispatch(
             addTodoThunk({ id: Date.now()+Math.random(), ...todo }),
-            onReset(),
-            onList()
+            onReset()
             )
     };
   }
@@ -95,6 +95,8 @@ const Form = () => {
     }
 
   return (
+    <>
+    <Header />
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
           <InputVali>
@@ -142,6 +144,8 @@ const Form = () => {
           <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
         </BtnBox>
     </FormBox>
+    <Footer />
+    </>
   );
 };
   

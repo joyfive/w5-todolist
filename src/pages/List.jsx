@@ -2,7 +2,10 @@ import React, { useEffect }from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getTodosThunk, deleteTodoThunk, switchStatusThunk } from "../redux/modules/todosSlice";
 import styled from "styled-components";
-import Todo from './Todo'
+import Todo from '../components/Todo'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
 
 const List = () => {
   const dispatch = useDispatch();
@@ -44,6 +47,8 @@ const List = () => {
   }
 
   return (
+    <>
+    <Header />
     <ListCont>
       <div>
         <ListTit>해야 할일.</ListTit>
@@ -88,6 +93,8 @@ const List = () => {
         </ListWrap>
         </div>
     </ListCont>
+    <Footer />
+    </>
   );
 }
 

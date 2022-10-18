@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { GoThumbsup } from "react-icons/go";
+import { TbBrandGithub } from "react-icons/tb";
 
 function Header() {
   const navigate = useNavigate();
@@ -10,9 +10,9 @@ function Header() {
     <HeadContainer>
       <HeadLeft onClick={()=>{
                       navigate("/")
-                    }}>❤️ W4:Todo-list</HeadLeft>
-      <HeadRight1>joyfive
-      <HeadRight2 onClick={() => window.open('https://github.com/joyfive', '_blank')} className="head-ico"><GoThumbsup style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40"}} /></HeadRight2>
+                    }}>❤️ W5:Todo-list</HeadLeft>
+      <HeadRight1>joy&mhh
+      <HeadRight2 onClick={() => window.open('https://github.com/joyfive/w5-todolist', '_blank')} className="head-ico"><TbBrandGithub style={{backgroundColor: "rgba(0, 0, 0, 0)" , color: "#004d40", fontSize: "1.4rem"}} /></HeadRight2>
       </HeadRight1>
     </HeadContainer>
   );
