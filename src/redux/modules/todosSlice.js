@@ -108,7 +108,7 @@ export const updateTodoThunk = createAsyncThunk(
   "todos/updateTodo",
   async (payload, thunkAPI) => {
     try {
-      axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
       const data = await axios.get(`http://localhost:3001/todos/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -121,14 +121,22 @@ export const todosSlice = createSlice({
   name: "todos",
 
   initialState,
+ 
   reducers: {
     getID(state, action) {
       state.todo = state.todos.find((todo) => {
         return todo.id === action.payload;
       })
     },
+    resetTodo: (state) => {
+      state.todo = {
+        id: 0,
+        body: "",
+        username: "",
+        title: "",
+      };
+    },
   },
-
 // export const todosSlice = createSlice({
 //   name: "todos",
 //   initalState,
@@ -238,5 +246,5 @@ export const todosSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo, switchStatus, getID } = todosSlice.actions;
+export const { addTodo, deleteTodo, switchStatus, getID, resetTodo } = todosSlice.actions;
 export default todosSlice.reducer;

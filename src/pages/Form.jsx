@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { addTodoThunk } from '../redux/modules/todosSlice';
-import axios from "axios"; 
+// import axios from "axios"; 
 import styled from "styled-components";
 
 import Header from "../components/Header";
@@ -23,9 +23,6 @@ const Form = () => {
 
     const navigate = useNavigate();
 
-    const goList = () => {
-      navigate(`/list`);
-    }
     
 
     const [todo, setTodo] = useState({
@@ -36,9 +33,10 @@ const Form = () => {
 
     useEffect(() => {
       if (!isSuccess) return;
-      if (isSuccess) 
+      if (isSuccess) navigate('/list');
+
       return (onReset, todo) => dispatch(onReset(todo));
-    }, [dispatch, isSuccess]);
+    }, [dispatch, isSuccess, navigate]);
 
     const onChange = (event) => {
         const { name, value } = event.target;
@@ -83,11 +81,10 @@ const Form = () => {
         if (validateForm()) {
           if (todo.writer.trim() === "" || todo.title.trim() === "" || todo.body.trim() === "") 
           return;
-          axios.post("http://localhost:3001/todos", todo);
           dispatch(
             addTodoThunk({ id: Date.now()+Math.random(), ...todo }),
-            onReset(),
-            goList())
+            onReset()
+            )
     };
   }
 

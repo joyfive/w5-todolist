@@ -1,73 +1,72 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getIdThunk, updateTodoThunk } from "../redux/modules/todosSlice";
+import { getIdThunk, updateTodoThunk, resetTodo } from "../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from "axios";
+// import axios from "axios";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const todoItem = useSelector((state) => state.todos.todo);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [todo, setTodo] = useState({
-    body: "",
-  });
-  
-  const [bodyError, setBodyError] = useState('');
 
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setTodo({ 
-      ...todo, 
-      [name]: value,
-      isEdit: true
-    });
-};
-
-//221018 구현예정
-// (Done)1. [수정하기] 버튼 클릭 시 - isEdit : false => true
-// 2. isEdit:true 일 때, 수정 폼 노출
-// 3. 수정 폼에서 [저장하기] 버튼 클릭 시 - 입력데이터 body value에 저장 + isEdit : true => false
-
-  const onEdit = (event) => {
-    dispatch(
-    setTodo({
-      isEdit: true
-    })  
-  )};
+  const [updateTodo, setUpdateTodo] = useState('');
+  // const [bodyError, setBodyError] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     dispatch(getIdThunk(id));
+    return () => dispatch(resetTodo());
   }, [dispatch, id]);
 
-  const validateForm = () => {
-    setBodyError('');
-    let validated = true;
+  useEffect(() => {
+    setUpdateTodo(todoItem.body,);
+  }, [todoItem]);
 
-    if (!todo.body) {
-      setBodyError('수정할 내용을 입력해주세요.');
-      validated = false;
-    }
-    return validated;
+//221018 구현예정
+// (Done)1. [수정하기] 버튼 클릭 시 - isEdit : false => true
+// (Done). isEdit:true 일 때, 수정 폼 노출
+// 3. 수정 폼에서 [저장하기] 버튼 클릭 시 - 입력데이터 body value에 저장 + isEdit : true => false
+
+
+  const onEdit = () => {
+    dispatch(setIsEdit(true))
+  }
+  
+  // const validateForm = () => {
+  //   setBodyError('');
+  //   let validated = true;
+
+  //   if (!todoItem.body) {
+  //     setBodyError('수정할 내용을 입력해주세요.');
+  //     validated = false;
+  //   }
+  //   return validated;
+  // }
+
+  const onChange = (event) => {
+    setUpdateTodo(event.target.value);
   }
 
-
   const onSubmit = (event) => {
-      event.preventDefault();
-      if (validateForm()) {
-        if (todo.body.trim() === "") 
-        return;
-        axios.patch(`http://localhost:3001/todos/${todoItem.id}`, todo);
-        dispatch(
-          updateTodoThunk({ id: Date.now()+Math.random(), ...todo }),
-          todoItem['isEdit'] = false
-        )
-  };
-}
+    event.preventDefault();
+    // // if (validateForm()) {
+    //   if (todoItem.body.trim() === "" && todoItem.body !== null) 
+    //   return;
+    dispatch(
+      updateTodoThunk({
+        ...todoItem,
+        body: updateTodo,
+      }),
+      // setBodyError('')
+      )
+      setIsEdit(false);
+    // };
+  }
 
  return (
         <Layout>
@@ -82,15 +81,16 @@ const Detail = () => {
               </TitBox>
                 <Body
                 >
-                  <Textbox display={!todo.isEdit ? "block" : "none"}>
+                  <Textbox display={!isEdit ? "block" : "none"}>
                     {todoItem.body}
                   </Textbox> 
                 <EditForm>
-                <BodyEdit type="submit" id="bodyEdit" onChange={onChange} display={todo.isEdit ? "block" : "none"}></BodyEdit>
-                <BtnEdit type="submit" form="bodyEdit" onSubmit={onSubmit} display={todo.isEdit ? "block" : "none"}>저장하기</BtnEdit>
+                <BodyEdit type="submit" name="body" minLength={10} maxLength={300} value={updateTodo} onChange={onChange} display={isEdit ? "block" : "none"}></BodyEdit>
+                <BtnEdit onClick={onSubmit} display={isEdit ? "block" : "none"}>저장하기</BtnEdit>
                 </EditForm> </Body>
+                <Valitext>  </Valitext>
                 <Btnbottom>
-                <Valitext>{bodyError}</Valitext>
+                
                 <BtnReturn
                     onClick={onEdit}
                 >
@@ -180,6 +180,7 @@ const Body = styled.p`
     height: 100%;
     min-height: 240px;
     background-color: transparent;
+    width:80%;
 `;
 
 const Btnbottom = styled.div`
@@ -225,6 +226,7 @@ const BtnEdit = styled.button`
   text-align: center;
   margin: 0 auto;
   color: #ffefe0;
+  cursor: pointer;
   display: ${props => props.display || "block"};
 `
 
@@ -240,6 +242,9 @@ margin-left: 10px;
 padding: 0px;
 font-size: 0.7rem;
 color: red;
+background-color: transparent;
+margin-bottom: 10px;
+
 `
 
 const EditForm = styled.div`
