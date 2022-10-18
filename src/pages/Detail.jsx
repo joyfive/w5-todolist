@@ -53,13 +53,16 @@ const Detail = () => {
 
           }
           <BtnBox>
-            <BtnReturn
-              onClick={() => {
-                navigate("/todoList")
-              }}>
-              이전으로
-            </BtnReturn>
-
+            {!mod ?
+              <BtnReturn
+                onClick={() => {
+                  navigate("/todoList")
+                }}>
+                이전으로
+              </BtnReturn>
+              :
+              <BtnReturn onClick={isUpdate}>수정취소</BtnReturn>
+            }
             {!mod ?
               <BtnReturn onClick={isUpdate}>수정하기</BtnReturn>
               :

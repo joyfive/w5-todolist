@@ -5,14 +5,14 @@
       "title": "asd",
       "body": "asdasdfsdf",
       "writer": "asd",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": 2,
       "title": "qwe",
       "body": "qwe",
       "writer": "ads",
-      "isDone": false
+      "isDone": true
     },
     {
       "id": 3,
