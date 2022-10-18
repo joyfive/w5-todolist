@@ -65,7 +65,7 @@ const Form = () => {
     if (isSuccess) {
       navigate("/todoList");
     } else {
-      console.log(error)
+      if (error !== undefined) console.log(error);
     }
   }, [isSuccess]);
 

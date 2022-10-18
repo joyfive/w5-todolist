@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { __addComment, __getComments, commentIsMod } from '../redux/modules/comments';
+import { __addComment, __getComments, __deleteComment, __updateComment, commentIsMod } from '../redux/modules/comments';
 
 const Comment = (props) => {
     const dispatch = useDispatch();
@@ -40,23 +40,61 @@ const Comment = (props) => {
         useIsDisplay === "none" ? setUseIsDisplay("flex") : setUseIsDisplay("none");
     }
 
+    const [commentUpdata, setCommentUpdate] = useState();
+
     return (
         <CommentWrap>
             <CommentBtn onClick={commentTogle}>댓글</CommentBtn>
             <CommentContentWrap isDisplay={useIsDisplay} >
                 <ContentWrap>
-                    {comments.map((comment, i) => {
+                    {comments.map((comment) => {
                         return (
                             <Content key={comment.id}>
                                 <ContentTitleWrap>
                                     <ContentTitle>{comment.writer}</ContentTitle>
-                                    <ContentBtn onClick={() => { dispatch(commentIsMod(comment.id)) }}>수정</ContentBtn>
-                                    <ContentBtn>삭제</ContentBtn>
+                                    {!comment.isMod ?
+                                        <StSpan><ContentBtn onClick={() => { dispatch(commentIsMod(comment.id)) }}>수정</ContentBtn>
+                                            &nbsp;<ContentBtn onClick={() => {
+                                                const obj = {
+                                                    id: comment.id,
+                                                    contentId: props.detailConId
+                                                }
+                                                const result = window.confirm("삭제하시겠습니까?");
+                                                if (result) {
+                                                    dispatch(__deleteComment(obj));
+                                                } else {
+                                                    return;
+                                                }
+                                            }}>삭제</ContentBtn></StSpan>
+                                        :
+                                        <StSpan><ContentBtn onClick={() => {
+                                            setCommentUpdate();
+                                            dispatch(commentIsMod(comment.id));
+                                        }}>취소</ContentBtn>
+                                            &nbsp;<ContentBtn onClick={() => {
+                                                const obj = {
+                                                    id: comment.id,
+                                                    contentId: props.detailConId,
+                                                    writer: comment.writer,
+                                                    body: commentUpdata,
+                                                    isMod: false
+                                                }
+                                                dispatch(__updateComment(obj));
+                                            }}>저장</ContentBtn></StSpan>
+                                    }
                                 </ContentTitleWrap>
-                                {!comment.isMod ?
-                                    <ContentBody>{comment.body}</ContentBody>
-                                    :
-                                    <ContentModBody>{comment.body}</ContentModBody>
+                                {
+                                    !comment.isMod ?
+                                        <ContentBody>{comment.body}</ContentBody>
+                                        :
+                                        <ContentModBody
+                                            name='body'
+                                            row='3'
+                                            maxLength={100}
+                                            onChange={(event) => {
+                                                setCommentUpdate(event.target.value);
+                                            }}
+                                            value={commentUpdata || comment.body} />
                                 }
                             </Content>
                         )
@@ -195,4 +233,7 @@ const WriterBtn = styled.button`
   background-color: #39796b;
   color: white;
 }
+`
+const StSpan = styled.span`
+    background-color: #aebfbe;
 `

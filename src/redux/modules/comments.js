@@ -23,7 +23,6 @@ export const __getComments = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const data = await axios.get("http://localhost:3001/comments");
-            console.log(payload)
             const filterData = data.data.filter((val) => { return val.contentId === payload });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
@@ -49,6 +48,32 @@ export const __addComment = createAsyncThunk(
     }
 );
 
+export const __deleteComment = createAsyncThunk(
+    "comments/deleteComment",//type
+    async (payload, thunkAPI) => {
+        try {
+            await axios.delete(`http://localhost:3001/comments/${payload.id}`, { data: { contentId: Number(payload.contentId) } });
+            const data = await axios.get("http://localhost:3001/comments");
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
+export const __updateComment = createAsyncThunk(
+    "Comments/updateComment",//type
+    async (payload, thunkAPI) => {
+        try {
+            await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload);
+            const data = await axios.get("http://localhost:3001/comments");
+            return thunkAPI.fulfillWithValue(data.data);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 
 export const commentsSlice = createSlice({
 
@@ -56,12 +81,14 @@ export const commentsSlice = createSlice({
     initialState,
     reducers: {
         commentIsMod(state, action) {
-            console.log(state)
-            // state.comments = state.comments.map((val, i, arr) => {
-            //     if (val.id === Number(action.payload)) {
-            //         arr[i].isMod = !arr[i].isMod
-            //     }
-            // })
+            //선택한 댓글 찾기
+            const findComment = state.comments.find((val) => { return val.id === action.payload });
+            //선택한 댓글 인덱스
+            const findComIndex = state.comments.findIndex((val) => { return val.id === action.payload });
+            //선택한 댓글 복사 & isMod값 수정
+            const changeIsMod = { ...findComment, isMod: !findComment.isMod };
+            //state 변경
+            state.comments.splice(findComIndex, 1, changeIsMod);
         }
     },
 
@@ -90,7 +117,30 @@ export const commentsSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
-
+        //-__deleteComment-
+        [__deleteComment.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__deleteComment.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.comments = action.payload;
+        },
+        [__deleteComment.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        //-__updateComment-
+        [__updateComment.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__updateComment.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.comments = action.payload;
+        },
+        [__updateComment.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
 
     },
 

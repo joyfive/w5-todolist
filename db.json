@@ -2,47 +2,13 @@
   "todos": [
     {
       "id": 1,
-      "title": "ddd",
-      "body": "ddd",
-      "writer": "sss",
-      "isDone": true
-    },
-    {
-      "id": 2,
-      "title": "fff",
-      "body": "gggghm,lfghmklmhgf",
-      "writer": "ddd",
-      "isDone": false
-    },
-    {
-      "id": 4,
-      "title": "test",
-      "body": "setestdfgdfgfdg",
-      "writer": "teset",
+      "title": "ㅁㄴㅇㅁㄴㅇ",
+      "body": "ㅁㄴㅇㅁㄴㅇㅁㄴㅇ",
+      "writer": "ㅁㄴㅇㅁㄴㅇ",
       "isDone": false
     }
   ],
   "comments": [
-    {
-      "contentId": 2,
-      "writer": "test",
-      "body": "test",
-      "id": 1,
-      "isMod": false
-    },
-    {
-      "contentId": 2,
-      "writer": "123",
-      "body": "123",
-      "id": 2,
-      "isMod": false
-    },
-    {
-      "contentId": 2,
-      "writer": "sadf",
-      "body": "qwe",
-      "id": 3,
-      "isMod": false
-    }
+    
   ]
 }
