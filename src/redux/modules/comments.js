@@ -9,13 +9,7 @@ const initialState = {
             body: "sample",
             writer: "sample",
         },
-    ],
-    comment: {
-        contentId: "0",
-        id: "0",
-        body: "",
-        writer: "test",
-    }
+    ]
 };
 
 export const __getComments = createAsyncThunk(
@@ -54,7 +48,8 @@ export const __deleteComment = createAsyncThunk(
         try {
             await axios.delete(`http://localhost:3001/comments/${payload.id}`, { data: { contentId: Number(payload.contentId) } });
             const data = await axios.get("http://localhost:3001/comments");
-            return thunkAPI.fulfillWithValue(data.data);
+            const filterData = data.data.filter((val) => { return val.contentId === payload.contentId });
+            return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -67,7 +62,8 @@ export const __updateComment = createAsyncThunk(
         try {
             await axios.patch(`http://localhost:3001/comments/${payload.id}`, payload);
             const data = await axios.get("http://localhost:3001/comments");
-            return thunkAPI.fulfillWithValue(data.data);
+            const filterData = data.data.filter((val) => { return val.contentId === payload.contentId });
+            return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
