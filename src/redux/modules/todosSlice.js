@@ -47,7 +47,7 @@ export const addTodoThunk = createAsyncThunk(
   "todos/addTodo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post('http://localhost:3001/todos', payload);
+      const data = await axios.post('https://w5t2.herokuapp.com/todos', payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -59,7 +59,7 @@ export const getTodosThunk = createAsyncThunk(
   "todos/getTodos",
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('http://localhost:3001/todos/');
+      const { data } = await axios.get('https://w5t2.herokuapp.com/todos/');
       return thunkAPI.fulfillWithValue(data.reverse());
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -71,7 +71,7 @@ export const deleteTodoThunk = createAsyncThunk(
   "todos/deleteTodo",
   async (payload, thunkAPI) => {
     try {
-      axios.delete(`http://localhost:3001/todos/${payload}`);
+      axios.delete(`https://w5t2.herokuapp.com/todos/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -96,7 +96,7 @@ export const getIdThunk = createAsyncThunk(
   "todos/getID",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/todos/${payload}`);
+      const { data } = await axios.get(`https://w5t2.herokuapp.com/todos/${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
@@ -108,8 +108,8 @@ export const updateTodoThunk = createAsyncThunk(
   "todos/updateTodo",
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`http://localhost:3001/todos/${payload.id}`, payload);
-      const data = await axios.get(`http://localhost:3001/todos/${payload.id}`);
+      await axios.patch(`https://w5t2.herokuapp.com/todos/${payload.id}`, payload);
+      const data = await axios.get(`https://w5t2.herokuapp.com/todos/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);
