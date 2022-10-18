@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { __getTodos, __deleteTodo, __updateStatus } from "../redux/modules/todos.js";
-import { __allDeleteComment } from '../redux/modules/comments.js';
 import styled from "styled-components";
 import Todo from './Todo'
 

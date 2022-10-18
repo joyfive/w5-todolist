@@ -49,7 +49,7 @@ export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/todos/${payload}`);
+      await axios.delete(`http://localhost:3001/todos/${payload.id}`);
       //await axios.delete(`http://localhost:3001/coments/${payload.contentId}`);
       const data = await axios.get("http://localhost:3001/todos");
       return thunkAPI.fulfillWithValue(data.data);

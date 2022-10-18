@@ -1,25 +1,11 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "asd",
-      "body": "asdasdfsdf",
-      "writer": "asd",
-      "isDone": true
-    },
-    {
       "id": 2,
       "title": "qwe",
       "body": "qwe",
       "writer": "ads",
-      "isDone": true
-    },
-    {
-      "id": 3,
-      "title": "123",
-      "body": "qwe",
-      "writer": "123",
-      "isDone": false
+      "isDone": true      
     }
   ],
   "comments": [
