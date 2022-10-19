@@ -16,7 +16,7 @@ export const __getComments = createAsyncThunk(
     "comments/getComments",//type
     async (detailConId, thunkAPI) => {
         try {
-            const data = await axios.get("https://w5hh.herokuapp.com/cmts");
+            const data = await axios.get("https://w5hh.herokuapp.com/comments");
             const filterData = data.data.filter((val) => { return val.contentId === detailConId });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
@@ -30,7 +30,7 @@ export const __addComment = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             //id Max값 여기서 구현해봄
-            const getComments = await axios.get("https://w5hh.herokuapp.com/cmts");
+            const getComments = await axios.get("https://w5hh.herokuapp.com/comments");
             const commentsIdArr = getComments.data.map((e) => { return e.id })
             await axios.post("https://w5hh.herokuapp.com/comments", { ...payload, id: (Math.max(commentsIdArr) + 1), isMod: false });
             const data = await axios.get("https://w5hh.herokuapp.com/comments");

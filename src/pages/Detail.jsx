@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { __getID, __updateContent } from "../redux/modules/todos.js";
 
+// import Layout from "../components/Layout";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Comment from "../components/Comment";
@@ -31,7 +32,8 @@ const Detail = () => {
   }
 
   return (
-    <Layout>
+    // <Layout>
+    <>
       <Header />
       <DetailWrap>
         <DetailBox>
@@ -83,7 +85,8 @@ const Detail = () => {
         <Comment detailConId={todoItem.id} />
       </DetailWrap>
       <Footer />
-    </Layout>
+    {/* </Layout> */}
+    </>
   );
 
 };
@@ -98,15 +101,15 @@ const BtnBox = styled.div`
     gap:24px;
 `
 
-const Layout = styled.div`
-    display: block;
-    width: 100%;
-    height: 100vh;
-    background-color: #ffefe0;
-    margin: 0;
-    padding: 0;
+// const Layout = styled.div`
+//     display: block;
+//     width: 100%;
+//     height: 100vh;
+//     background-color: #ffefe0;
+//     margin: 0;
+//     padding: 0;
     
-`;
+// `;
 const DetailWrap = styled.div`
   width: 100%;
   display : flex;

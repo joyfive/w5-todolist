@@ -49,7 +49,7 @@ export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`https://w5hh.herokuapp.com/todos/${payload.id}`);
+      await axios.delete(`https://w5hh.herokuapp.com/todos/${payload}`);
       //await axios.delete(`http://localhost:3001/coments/${payload.contentId}`);
       const data = await axios.get("https://w5hh.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
