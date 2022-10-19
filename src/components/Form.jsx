@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { __addTodo, __getTodos } from '../redux/modules/todos';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+import useInput from "../hooks/useInput";
 
 const Form = () => {
   const { isSuccess, error, todos } = useSelector((state) => state.todos);
@@ -28,6 +29,8 @@ const Form = () => {
     writer: "",
     isDone: false,
   });
+
+  const [test, testHandle] = useInput();
 
   const onChange = (event) => {
     const { name, value } = event.target;
