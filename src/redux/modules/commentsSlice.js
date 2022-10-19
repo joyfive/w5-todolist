@@ -68,7 +68,7 @@ export const updateCmtThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.patch(`https://w5t2.herokuapp.com/cmts/${payload.id}`, payload);
-      const data = await axios.get(`https://w5t2.herokuapp.com/cmts/${payload.id}`);
+      const data = await axios.get(`https://w5t2.herokuapp.com/ggitcmts/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.code);

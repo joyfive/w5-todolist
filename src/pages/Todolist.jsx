@@ -1,30 +1,28 @@
 import React from 'react';
 import styled from "styled-components";
 import Header from "../components/Header";
-import Form from "./Form";
-import List from "./List";
+import List from "../components/List";
 import Footer from "../components/Footer";
 
 
 
 const TodoList = () => {
 
-       return (
-        <Layout>
-          <Header />
-          <Contents>
-          <Form />
-          <List />
-          </Contents>
-          <Footer />
-        </Layout>
-      );
-    };
-    
-    export default TodoList;
-    
+  return (
+    <Layout>
+      <Header />
+      <Contents>
+        <List />
+      </Contents>
+      <Footer />
+    </Layout>
+  );
+};
 
-    const Layout = styled.div`
+export default TodoList;
+
+
+const Layout = styled.div`
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: auto;
@@ -39,8 +37,8 @@ const TodoList = () => {
         width: 95%;
     }
     `;
-    
-    const Contents = styled.div`
+
+const Contents = styled.div`
     margin: 0;
     width: 100%;
     padding: 0;

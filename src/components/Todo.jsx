@@ -6,11 +6,12 @@ import { IoIosCheckmarkCircleOutline, IoIosCheckmarkCircle, IoIosArrowForward } 
 
 
 function Todo({ todo, onEdit, onDelete }) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const onDetial = () => {
-  navigate(`/${todo.id}`)
-}
+  const onDetial = () => {
+    navigate(`/${todo.id}`)
+  }
+  
 
  return (
         <Todobox color={todo.isDone ? "#e2d3c4" : "#ffefe0"} border={todo.isDone ? "#ffefe0" : "#004d40;"}>
@@ -47,33 +48,33 @@ export default Todo;
 
 
 const Todobox = styled.article`
-  margin: 10px;
-  padding: 20px;
-  width: 80%;
-  border: 1px solid ${props => props.border || "#39796b"};
-  /** done */
-  background-color: ${props => props.color || "blue"};
+margin: 10px;
+padding: 20px;
+width: 80%;
+border: 1px solid ${props => props.border || "#39796b"};
+/** done */
+background-color: ${props => props.color || "blue"};
 `
 
 const Container = styled.div`
-  background-color: transparent;
+background-color: transparent;
 `
 const Title = styled.div`
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 2;
-  background-color: transparent;
-  color: #39796b;
-  `
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+font-weight: 600;
+font-size: 1rem;
+line-height: 2;
+background-color: transparent;
+color: #39796b;
+`
 
-  const TitText = styled.div`
-    background-color: transparent;
-  `
+const TitText = styled.div`
+background-color: transparent;
+`
 
   const Body = styled.div`
   font-family: 'IBM Plex Sans KR', sans-serif;
@@ -97,13 +98,13 @@ const Btn = styled.button`
   cursor: pointer;
   
   &:hover {
-    background-color: #fff;
-  }
+  background-color: #fff;
+}
 `
 const Hr = styled.hr`
-  border-top: 1px solid #39796b;
-  border-bottom: 0;
-  
+border-top: 1px solid #39796b;
+border-bottom: 0;
+
 `
 
 const BodyWrap = styled.div`
