@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/element/Header";
+import Footer from "../components/element/Footer";
 import Form from "../components/Form";
 
 const Edit = () => {
@@ -11,7 +11,7 @@ const Edit = () => {
             <Header />
             <Contents>
                 <HomeBox>
-                    <h1>할일 추가하기</h1>
+                    <H1>할일 추가하기</H1>
                     <Form />
                 </HomeBox>
             </Contents>
@@ -30,7 +30,6 @@ gap: 0;
 /* grid-auto-rows: minmax(40px, auto); */
 margin: 0;
 padding: 0;
-background-color: #ffefe0;
 
 @media screen and (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -63,3 +62,10 @@ const HomeBox = styled.div`
   @media screen and (max-width: 900px) {
     }
 `;
+
+const H1 = styled.h1`
+    margin-top: 60px;
+    font-size: 2.5rem;
+    text-align: center;
+    color: #121212;
+`

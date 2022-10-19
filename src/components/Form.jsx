@@ -4,6 +4,8 @@ import { __addTodo, __getTodos } from '../redux/modules/todos';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
+import Btn from "../components/element/Btn"
+
 const Form = () => {
   const { isSuccess, error, todos } = useSelector((state) => state.todos);
   const navigate = useNavigate();
@@ -111,8 +113,8 @@ const Form = () => {
 
 
       <BtnBox>
-        <BtnAdd type="submit" form="add" className="form-btn" >작성하기</BtnAdd>
-        <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
+        <Btn type="submit" form="add" className="form-btn" >작성하기</Btn>
+        <Btn type="button" onClick={onReset} className="form-btn">리셋하기</Btn>
       </BtnBox>
     </FormBox>
 
@@ -128,17 +130,23 @@ export default Form;
 const FormBox = styled.form`
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  width: 100%;
-  height: 40px;
-  margin: 40px 10px;
+  width: 80%;
+  height: 450px;
+  margin: 0px auto;
   display: flex;
   flex-direction: column;
+  
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0px 2px 10px #9dabca;
+  padding: 5%;
   @media screen and (max-width: 900px) {
-    }
 
+    }
+`
 
   
-`;
+
 
 const InputContainer = styled.section`
 width: 100%;
@@ -154,7 +162,8 @@ justify-content: space-between;
 const InputVali = styled.div`
   display: flex;
   flex-direction: column;
-  width: 45%;
+  align-content: center;
+  width: 100%;
   font-family: 'IBM Plex Sans KR', sans-serif;
 
   @media screen and (max-width: 900px) {
@@ -165,18 +174,17 @@ const InputVali = styled.div`
 `
 
 const InputBox = styled.input`
-font-family: 'IBM Plex Sans KR', sans-serif;
 height: 40px;
 margin: 10px;
-padding: 0px;
+padding: 5px 20px;
 background-color: transparent;
 
 outline: 0;
-border-width: 0 0 1px;
-border-color: #39796b;
-
-  color: #39796b;
-  font-size: 0.8rem;
+border-width: 1px solid;
+border: 1px solid #2c5cc5;
+  color: #121212;
+  border-radius: 10px;
+  font-size: 0.9rem;
   font-weight: 400;
     @media screen and (max-width: 900px) {
         
@@ -184,74 +192,27 @@ border-color: #39796b;
 `;
 
 const BtnBox = styled.div`
-
-width: 100%;
+border: 0;
+border-top: 1px solid #eee;
+width: 97%;
+margin: 40px auto;
+padding: 40px 0 0 0;
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: end;
+
 @media screen and (max-width: 900px) {
-        justify-content: center;
         height: 120px;
         margin-top: 10px;
+        flex-direction: row;
     }
 
 `;
-
-const BtnAdd = styled.button`
-font-family: 'IBM Plex Sans KR', sans-serif;
-display: block;
-width: 10%;
-height: 32px;
-margin: 10px;
-color: #39796b;
-font-weight: 600;
-font-size: 0.7rem;
-border: 1px solid #39796b;
-background-color: transparent;
-cursor: pointer;
-
-
-&:hover {
-  background-color: #39796b;
-  color: white;
-}
-
-@media screen and (max-width: 900px) {
-        width: 30%;
-    }
-
-
-`;
-
-const BtnReset = styled.button`
-font-family: 'IBM Plex Sans KR', sans-serif;
-display: block;
-width: 10%;
-height: 32px;
-margin: 10px;
-color: #39796b;
-font-weight: 600;
-font-size: 0.7rem;
-border: 1px solid #39796b;
-background-color: transparent;
-cursor: pointer;
-
-&:hover {
-  background-color: #39796b;
-  color: white;
-}
-
-@media screen and (max-width: 900px) {
-        width: 30%;
-    }
-
-`;
-
 
 const Valitext = styled.div`
 width: 100%;
 margin-left: 10px;
 padding: 0px;
 font-size: 0.7rem;
-color: red;
+color: #f96854;
 `
