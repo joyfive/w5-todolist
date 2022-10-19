@@ -17,7 +17,6 @@ const StButton = styled.button`
   margin: 5px 5px;
   align-self: center;
   height: 100%;
-
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.6;
@@ -26,7 +25,6 @@ const StButton = styled.button`
   border-radius: 10px;
   box-shadow: 0px 2px 10px #9dabca;
   background-color: white;
-  font-family: 'IBM Plex Sans KR', sans-serif;
   cursor: pointer;
 
 &:hover {
