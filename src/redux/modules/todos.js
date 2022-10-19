@@ -24,7 +24,7 @@ export const __getTodos = createAsyncThunk(
   "todos/getTodos",//type
   async (_, thunkAPI) => {
     try {
-      const data = await axios.get("https://w5hh.herokuapp.com/todos");
+      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -36,8 +36,8 @@ export const __addTodo = createAsyncThunk(
   "todos/addTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.post("https://w5hh.herokuapp.com/todos", payload);
-      const data = await axios.get("https://w5hh.herokuapp.com/todos");
+      await axios.post(`${process.env.REACT_APP_API_URL_TODOS}`, payload);
+      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,9 +49,8 @@ export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`https://w5hh.herokuapp.com/todos/${payload}`);
-      //await axios.delete(`http://localhost:3001/coments/${payload.contentId}`);
-      const data = await axios.get("https://w5hh.herokuapp.com/todos");
+      await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload}`);
+      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,8 +62,8 @@ export const __updateStatus = createAsyncThunk(
   "todos/updateStatus",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`https://w5hh.herokuapp.com/todos/${payload.id}`, payload);
-      const data = await axios.get("https://w5hh.herokuapp.com/todos");
+      await axios.patch(`${process.env.REACT_APP_API_URL_TODOS}/${payload.id}`, payload);
+      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -76,8 +75,8 @@ export const __updateContent = createAsyncThunk(
   "todos/updateContent",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`https://w5hh.herokuapp.com/todos/${payload.id}`, payload);
-      const data = await axios.get(`https://w5hh.herokuapp.com/todos/${payload.id}`);
+      await axios.patch(`${process.env.REACT_APP_API_URL_TODOS}/${payload.id}`, payload);
+      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -89,7 +88,7 @@ export const __getID = createAsyncThunk(
   "todos/getID",//type
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(`https://w5hh.herokuapp.com/todos/${payload}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}/${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

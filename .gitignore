@@ -24,3 +24,7 @@ yarn-error.log*
 
 /db.json
 /server
+
+#env
+#버셀에 올려야하니 주석 실제로 쓸때는 안올라가도록 주의하자
+#.env
