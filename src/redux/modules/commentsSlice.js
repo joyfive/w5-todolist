@@ -1,3 +1,4 @@
+//미사용 파일
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
