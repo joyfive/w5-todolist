@@ -6,6 +6,12 @@ import { IoIosCheckmarkCircleOutline, IoIosCheckmarkCircle, IoIosArrowForward } 
 
 
 function Todo({ todo, onEdit, onDelete }) {
+  const navigate = useNavigate();
+
+  const onDetial = () => {
+    navigate(`/${todo.id}`)
+  }
+  
 
  return (
         <Todobox color={todo.isDone ? "#e2d3c4" : "#ffefe0"} border={todo.isDone ? "#ffefe0" : "#004d40;"}>
@@ -107,9 +113,6 @@ const BodyWrap = styled.div`
   justify-content: space-between;
   background-color: transparent;
 `
-const Link = ({children, ...props}) => {
-  return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
-}
 
 const BtnSet = styled.div`
     background-color: transparent;

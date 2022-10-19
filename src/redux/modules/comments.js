@@ -14,10 +14,10 @@ const initialState = {
 
 export const __getComments = createAsyncThunk(
     "comments/getComments",//type
-    async (payload, thunkAPI) => {
+    async (detailConId, thunkAPI) => {
         try {
-            const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/comments");
-            const filterData = data.data.filter((val) => { return val.contentId === payload });
+            const data = await axios.get("https://w5hh.herokuapp.com/cmts");
+            const filterData = data.data.filter((val) => { return val.contentId === detailConId });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -30,10 +30,10 @@ export const __addComment = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             //id Max값 여기서 구현해봄
-            const getComments = await axios.get("https://w5-todolist-heroku.herokuapp.com/comments");
+            const getComments = await axios.get("https://w5hh.herokuapp.com/cmts");
             const commentsIdArr = getComments.data.map((e) => { return e.id })
-            await axios.post("https://w5-todolist-heroku.herokuapp.com/comments", { ...payload, id: (Math.max(commentsIdArr) + 1), isMod: false });
-            const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/comments");
+            await axios.post("https://w5hh.herokuapp.com/comments", { ...payload, id: (Math.max(commentsIdArr) + 1), isMod: false });
+            const data = await axios.get("https://w5hh.herokuapp.com/comments");
             const filterData = data.data.filter((val) => { return val.contentId === payload.contentId });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
@@ -46,8 +46,8 @@ export const __deleteComment = createAsyncThunk(
     "comments/deleteComment",//type
     async (payload, thunkAPI) => {
         try {
-            await axios.delete(`https://w5-todolist-heroku.herokuapp.com/comments/${payload.id}`, { data: { contentId: Number(payload.contentId) } });
-            const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/comments");
+            await axios.delete(`https://w5hh.herokuapp.com/comments/${payload.id}`, { data: { contentId: Number(payload.contentId) } });
+            const data = await axios.get("https://w5hh.herokuapp.com/comments");
             const filterData = data.data.filter((val) => { return val.contentId === payload.contentId });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
@@ -60,8 +60,8 @@ export const __updateComment = createAsyncThunk(
     "Comments/updateComment",//type
     async (payload, thunkAPI) => {
         try {
-            await axios.patch(`https://w5-todolist-heroku.herokuapp.com/comments/${payload.id}`, payload);
-            const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/comments");
+            await axios.patch(`https://w5hh.herokuapp.com/comments/${payload.id}`, payload);
+            const data = await axios.get("https://w5hh.herokuapp.com/comments");
             const filterData = data.data.filter((val) => { return val.contentId === payload.contentId });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {

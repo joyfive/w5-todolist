@@ -22,9 +22,9 @@ const initialState = {
 
 export const __getTodos = createAsyncThunk(
   "todos/getTodos",//type
-  async (payload, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      const data = await axios.get("https://w5hh.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -36,8 +36,8 @@ export const __addTodo = createAsyncThunk(
   "todos/addTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.post("https://w5-todolist-heroku.herokuapp.com/todos", payload);
-      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      await axios.post("https://w5hh.herokuapp.com/todos", payload);
+      const data = await axios.get("https://w5hh.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,9 +49,9 @@ export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`);
+      await axios.delete(`https://w5hh.herokuapp.com/todos/${payload.id}`);
       //await axios.delete(`http://localhost:3001/coments/${payload.contentId}`);
-      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      const data = await axios.get("https://w5hh.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,8 +63,8 @@ export const __updateStatus = createAsyncThunk(
   "todos/updateStatus",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`, payload);
-      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      await axios.patch(`https://w5hh.herokuapp.com/todos/${payload.id}`, payload);
+      const data = await axios.get("https://w5hh.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -76,8 +76,8 @@ export const __updateContent = createAsyncThunk(
   "todos/updateContent",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.patch(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`, payload);
-      const data = await axios.get(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`);
+      await axios.patch(`https://w5hh.herokuapp.com/todos/${payload.id}`, payload);
+      const data = await axios.get(`https://w5hh.herokuapp.com/todos/${payload.id}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -89,7 +89,7 @@ export const __getID = createAsyncThunk(
   "todos/getID",//type
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(`https://w5-todolist-heroku.herokuapp.com/todos/${payload}`);
+      const { data } = await axios.get(`https://w5hh.herokuapp.com/todos/${payload}`);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

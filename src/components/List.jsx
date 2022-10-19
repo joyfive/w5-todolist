@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { __getTodos, __deleteTodo, __updateStatus } from "../redux/modules/todos.js";
 import styled from "styled-components";
@@ -46,7 +46,6 @@ const List = () => {
 
   return (
     <>
-    <Header />
     <ListCont>
       <div>
         <ListTit>해야 할일.</ListTit>
@@ -91,7 +90,6 @@ const List = () => {
         </ListWrap>
       </div>
     </ListCont>
-    <Footer />
     </>
   );
 }

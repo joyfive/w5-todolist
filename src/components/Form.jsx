@@ -4,22 +4,6 @@ import { __addTodo, __getTodos } from '../redux/modules/todos';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-import { useNavigate } from 'react-router-dom';
-
-
-
-
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
-import { useNavigate } from 'react-router-dom';
-
-
-
-
 const Form = () => {
   const { isSuccess, error, todos } = useSelector((state) => state.todos);
   const navigate = useNavigate();
@@ -87,7 +71,6 @@ const Form = () => {
 
   return (
     <>
-    <Header />
     <FormBox onSubmit={onSubmit} id="add">
       <InputContainer>
         <InputVali>
@@ -132,7 +115,7 @@ const Form = () => {
         <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
       </BtnBox>
     </FormBox>
-    <Footer />
+
     </>
   );
 };
