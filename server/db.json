@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "todos": [
     {
       "id": 1,
@@ -7,4 +8,9 @@
       "isDone": false
     }
   ]
+=======
+  "todos": [    
+  ],
+  "comments": []
+>>>>>>> 8e7a097d5e7d533b1e3d651d75b6400b3581acc7
 }

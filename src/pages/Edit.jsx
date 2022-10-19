@@ -1,27 +1,18 @@
 import React from 'react';
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Form from "../components/Form";
 
-const Home = () => {
-    const navigate = useNavigate();
+const Edit = () => {
     return (
         <Layout>
             <Header />
             <Contents>
                 <HomeBox>
-                    <h1>What to do?</h1>
-
-                    <Btn onClick={() => {
-                        navigate("/todoList")
-                    }}>Todo List</Btn>
-
-                    <Btn onClick={() => {
-                        navigate("/edit")
-                    }}>Edit</Btn>
-
+                    <h1>할일 추가하기</h1>
+                    <Form />
                 </HomeBox>
             </Contents>
             <Footer />
@@ -29,7 +20,7 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Edit;
 
 const Layout = styled.div`
 display: grid;
@@ -72,19 +63,3 @@ const HomeBox = styled.div`
   @media screen and (max-width: 900px) {
     }
 `;
-
-const Btn = styled.button`
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    flex-direction: row;
-    padding: 0px 20px;
-    width: 100%;
-    height: 120px;
-    border: 1px solid rgb(238, 238, 238);
-    background-color: rgb(255, 255, 255);
-    border-radius: 8px;
-    cursor: pointer;
-`

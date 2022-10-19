@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getIdThunk, updateTodoThunk, resetTodo } from "../redux/modules/todosSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { __getID, __updateContent } from "../redux/modules/todos.js";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-// import axios from "axios";
+import Comment from "../components/Comment";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -14,104 +14,89 @@ const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [updateTodo, setUpdateTodo] = useState('');
-  // const [bodyError, setBodyError] = useState('');
-  const [isEdit, setIsEdit] = useState(false);
+  const [mod, setMod] = useState(false);
+
+  const [updatedTodo, setUpdatedTodo] = useState("");
 
   useEffect(() => {
-    dispatch(getIdThunk(id));
-    return () => dispatch(resetTodo());
+    dispatch(__getID(Number(id)));
   }, [dispatch, id]);
 
   useEffect(() => {
-    setUpdateTodo(todoItem.body,);
+    setUpdatedTodo(todoItem.body);
   }, [todoItem]);
 
-//221018 구현예정
-// (Done)1. [수정하기] 버튼 클릭 시 - isEdit : false => true
-// (Done). isEdit:true 일 때, 수정 폼 노출
-// 3. 수정 폼에서 [저장하기] 버튼 클릭 시 - 입력데이터 body value에 저장 + isEdit : true => false
-
-
-  const onEdit = () => {
-    dispatch(setIsEdit(true))
-  }
-  
-  // const validateForm = () => {
-  //   setBodyError('');
-  //   let validated = true;
-
-  //   if (!todoItem.body) {
-  //     setBodyError('수정할 내용을 입력해주세요.');
-  //     validated = false;
-  //   }
-  //   return validated;
-  // }
-
-  const onChange = (event) => {
-    setUpdateTodo(event.target.value);
+  const isUpdate = () => {
+    mod ? setMod(false) : setMod(true);
   }
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    // // if (validateForm()) {
-    //   if (todoItem.body.trim() === "" && todoItem.body !== null) 
-    //   return;
-    dispatch(
-      updateTodoThunk({
-        ...todoItem,
-        body: updateTodo,
-      }),
-      // setBodyError('')
-      )
-      setIsEdit(false);
-    // };
-  }
+  return (
+    <Layout>
+      <Header />
+      <DetailWrap>
+        <DetailBox>
+          <TitBox>
+            <Title>{todoItem.title}</Title>
+            <Id>ID : {todoItem.id}</Id>
+          </TitBox>
+          {!mod ?
+            <Body>{todoItem.body}</Body>
+            :
+            <ModBody
+              name="body"
+              rows="10"
+              maxLength={200}
+              value={updatedTodo}
+              onChange={(event) => {
+                setUpdatedTodo(event.target.value);
+              }} />
 
- return (
-        <Layout>
-            <Header />
-            <DetailBox>
-              <TitBox>
-                <Title>{todoItem.title}</Title>
-                <Id>
-                  <div>Writer : {todoItem.writer}</div>
-                  <div> POST ID : {todoItem.id}</div>
-                </Id>
-              </TitBox>
-                <Body
-                >
-                  <Textbox display={!isEdit ? "block" : "none"}>
-                    {todoItem.body}
-                  </Textbox> 
-                <EditForm>
-                <BodyEdit type="submit" name="body" minLength={10} maxLength={300} value={updateTodo} onChange={onChange} display={isEdit ? "block" : "none"}></BodyEdit>
-                <BtnEdit onClick={onSubmit} display={isEdit ? "block" : "none"}>저장하기</BtnEdit>
-                </EditForm> </Body>
-                <Valitext>  </Valitext>
-                <Btnbottom>
-                
-                <BtnReturn
-                    onClick={onEdit}
-                >
-                  수정하기
-                  </BtnReturn>
-                  <BtnReturn
-                    onClick={()=>{
-                      navigate("/list")
-                    }}
-                >
-                  돌아가기
-                </BtnReturn>
-                </Btnbottom>
-            </DetailBox>
-            <Footer />
-        </Layout>
-      );
-    
+          }
+          <BtnBox>
+            {!mod ?
+              <BtnReturn
+                onClick={() => {
+                  navigate("/todoList")
+                }}>
+                이전으로
+              </BtnReturn>
+              :
+              <BtnReturn onClick={isUpdate}>수정취소</BtnReturn>
+            }
+            {!mod ?
+              <BtnReturn onClick={isUpdate}>수정하기</BtnReturn>
+              :
+              <BtnReturn
+                onClick={() => {
+                  const obj = {
+                    ...todoItem,
+                    body: updatedTodo
+                  }
+                  dispatch(__updateContent(obj));
+                  isUpdate();
+                }}>
+                저장하기
+              </BtnReturn>
+            }
+          </BtnBox>
+        </DetailBox>
+        <Comment detailConId={todoItem.id} />
+      </DetailWrap>
+      <Footer />
+    </Layout>
+  );
+
 };
 
 export default Detail;
+
+const BtnBox = styled.div`
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:24px;
+`
 
 const Layout = styled.div`
     display: block;
@@ -122,6 +107,11 @@ const Layout = styled.div`
     padding: 0;
     
 `;
+const DetailWrap = styled.div`
+  width: 100%;
+  display : flex;
+  flex-direction : row;
+`
 
 const DetailBox = styled.div`
     width: 95%;
@@ -183,11 +173,16 @@ const Body = styled.p`
     width:80%;
 `;
 
-const Btnbottom = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
+const ModBody = styled.textarea`
+  font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0 20px;
+    color: #004d40;
+    height: 100%;
+    min-height: 240px;
+    background-color: transparent;
 `
+
 const BtnReturn = styled.button`
   padding: 10;
   width: 100%;
@@ -206,47 +201,4 @@ const BtnReturn = styled.button`
   background-color: #39796b;
   color: white;
 }
-`
-
-const BodyEdit = styled.textarea`
-  background-color: white;
-  border-radius: 10px;
-  width: 90%;
-  height: 160px;
-  margin: 20px auto 10px auto;
-  padding: 5%;
-  font-size: 0.8rem;
-  display: ${props => props.display || "block"};
-`
-
-const BtnEdit = styled.button`
-  border: 1px solid #004d40;
-  background-color: #39796b;
-  padding: 5px 80px;
-  text-align: center;
-  margin: 0 auto;
-  color: #ffefe0;
-  cursor: pointer;
-  display: ${props => props.display || "block"};
-`
-
-const Textbox = styled.div`
-  background-color: transparent;
-  color: #004d40;
-  display: ${props => props.display || "block"};
-`
-
-const Valitext = styled.div`
-width: 100%;
-margin-left: 10px;
-padding: 0px;
-font-size: 0.7rem;
-color: red;
-background-color: transparent;
-margin-bottom: 10px;
-
-`
-
-const EditForm = styled.div`
-  background-color: transparent;
 `

@@ -1,10 +1,8 @@
-import React, { useEffect }from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getTodosThunk, deleteTodoThunk, switchStatusThunk } from "../redux/modules/todosSlice";
+import { __getTodos, __deleteTodo, __updateStatus } from "../redux/modules/todos.js";
 import styled from "styled-components";
-import Todo from '../components/Todo'
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Todo from './Todo'
 
 
 const List = () => {
@@ -12,7 +10,7 @@ const List = () => {
   const { isLoading, error, todos } = useSelector((state) => state.todos);
 
   useEffect(() => {
-    dispatch(getTodosThunk());
+    dispatch(__getTodos());
   }, [dispatch]);
 
   const onStatus = (id) => {
@@ -22,12 +20,12 @@ const List = () => {
 
     findTodo.isDone ? findTodo.isDone = false : findTodo.isDone = true;
 
-    dispatch(switchStatusThunk(findTodo));
+    dispatch(__updateStatus(findTodo));
   };
 
   const onDelete = (id) => {
     if (window.confirm('삭제하시겠습니까?')) {
-      dispatch(deleteTodoThunk(id));
+      dispatch(__deleteTodo(id));
       window.alert('삭제가 완료되었습니다.')
     };
   }
@@ -57,11 +55,11 @@ const List = () => {
             if (!todo.isDone) {
               return (
                 <Todo
-                todo={todo}
-                key={todo.id}
-                todos={todos}
-                onDelete={onDelete}
-                onEdit={onStatus}
+                  todo={todo}
+                  key={todo.id}
+                  todos={todos}
+                  onDelete={onDelete}
+                  onEdit={onStatus}
                 />
               );
             } else {
@@ -69,29 +67,29 @@ const List = () => {
             }
           })}
         </ListWrap>
-        </div>
+      </div>
 
-        <div>
+      <div>
         <ListTit>완료한 할일.</ListTit>
         <ListWrap>
-        {todos.map((todo) => {
+          {todos.map((todo) => {
             if (todo.isDone) {
               return (
                 <Todo
-                todo={todo}
-                key={todo.id}
-                todos={todos}
-                onDelete={onDelete}
-                onEdit={onStatus}
+                  todo={todo}
+                  key={todo.id}
+                  todos={todos}
+                  onDelete={onDelete}
+                  onEdit={onStatus}
                 />
               )
             } else {
               return null;
             }
           })}
-         
+
         </ListWrap>
-        </div>
+      </div>
     </ListCont>
     <Footer />
     </>
