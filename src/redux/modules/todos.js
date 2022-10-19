@@ -1,109 +1,195 @@
-// Action value
-const ADD_TODO = "ADD_TODO";
-const GET_ID = "GET_ID";
-const DELETE_TODO = "DELETE_TODO";
-const SWITCH_STATUS = "SWITCH_STATUS";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// Action Creator
-// Todo를 추가하는 action creator
-export const addTodo = (payload) => {
-  return {
-    type: ADD_TODO,
-    payload,
-  };
-};
-
-// Todo를 지우는 action creator
-export const deleteTodo = (payload) => {
-  return {
-    type: DELETE_TODO,
-    payload,
-  };
-};
-
-// Todo를 isDone를 변경하는 action creator
-export const switchStatus = (payload) => {
-  return {
-    type: SWITCH_STATUS,
-    payload,
-  };
-};
-
-// 상세 페이지에서 특정 Todo만 조회하는 action creator
-export const getID = (payload) => {
-  return {
-    type: GET_ID,
-    payload,
-  };
-};
-
-// initial state
-const init = {
+const initialState = {
   todos: [
     {
-      id: "1",
-      title: "리덕스 101 강의듣기",
-      body: "노마드 코더의 강의를 들어봅시다",
+      id: "0",
+      title: "sample",
+      body: "sample",
+      writer: "sample",
       isDone: true,
-    },
-    {
-      id: "2",
-      title: "리덕스로 수정해보기",
-      body: "기능을 개발해보자",
-      isDone: false,
     },
   ],
   todo: {
     id: "0",
     title: "",
     body: "",
+    writer: "test",
     isDone: false,
   }
 };
 
-const todos = (state = init, action) => {
-  switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        todos: [...state.todos, action.payload],
-      };
-
-    case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload),
-      };
-
-    case SWITCH_STATUS:
-      return {
-        ...state,
-        todos: state.todos.map((todo) => {
-          if (todo.id === action.payload) {
-            return {
-              ...todo,
-              isDone: !todo.isDone,
-            };
-          } else {
-            return todo;
-          }
-        }),
-      };
-
-    case GET_ID:
-      return {
-        ...state,
-        todo: state.todos.find((todo) => {
-          return todo.id === action.payload;
-        }),
-      };
-      
-    default:
-      return state;
-      
+export const __getTodos = createAsyncThunk(
+  "todos/getTodos",//type
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-  
-};
+);
 
+export const __addTodo = createAsyncThunk(
+  "todos/addTodo",//type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.post("https://w5-todolist-heroku.herokuapp.com/todos", payload);
+      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-export default todos;
+export const __deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",//type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`);
+      //await axios.delete(`http://localhost:3001/coments/${payload.contentId}`);
+      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateStatus = createAsyncThunk(
+  "todos/updateStatus",//type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`, payload);
+      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __updateContent = createAsyncThunk(
+  "todos/updateContent",//type
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`, payload);
+      const data = await axios.get(`https://w5-todolist-heroku.herokuapp.com/todos/${payload.id}`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getID = createAsyncThunk(
+  "todos/getID",//type
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`https://w5-todolist-heroku.herokuapp.com/todos/${payload}`);
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const todosSlice = createSlice({
+
+  name: "todos",
+  initialState,
+  reducers: {
+    getID(state, action) {
+      state.todo = state.todos.find((todo) => {
+        return todo.id === action.payload;
+      })
+    }
+  },
+
+  extraReducers: {
+    //-__getTodos-
+    [__getTodos.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [__getTodos.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false;
+      state.todos = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+    },
+    [__getTodos.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isSuccess = false;
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
+    //-__addTodo-
+    [__addTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addTodo.fulfilled]: (state, action) => {
+      state.todos = action.payload;
+      state.isLoading = false;
+      state.isSuccess = true;
+    },
+    [__addTodo.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+      state.isSuccess = false;
+    },
+    //-__deleteTodo-
+    [__deleteTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteTodo.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [__deleteTodo.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //-__updateStatus-
+    [__updateStatus.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateStatus.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    },
+    [__updateStatus.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //-__updateContent-
+    [__updateContent.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateContent.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todo = action.payload;
+    },
+    [__updateContent.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    //-__getID
+    [__getID.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getID.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todo = action.payload;
+    },
+    [__getID.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+  },
+
+});
+
+export const { getID } = todosSlice.actions;
+export default todosSlice.reducer;

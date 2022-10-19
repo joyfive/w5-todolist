@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getID } from "../redux/modules/todos";
+import { __getID, __updateContent } from "../redux/modules/todos.js";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Comment from "../components/Comment";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -13,34 +14,89 @@ const Detail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [mod, setMod] = useState(false);
+
+  const [updatedTodo, setUpdatedTodo] = useState("");
+
   useEffect(() => {
-    dispatch(getID(id));
+    dispatch(__getID(Number(id)));
   }, [dispatch, id]);
-console.log(todoItem)
- return (
-        <Layout>
-            <Header />
-            <DetailBox>
-              <TitBox>
-                <Title>{todoItem.title}</Title>
-                <Id>ID : {todoItem.id}</Id>
-              </TitBox>
-                <Body>{todoItem.body}</Body>
-                <BtnReturn
-                    onClick={()=>{
-                      navigate("/")
-                    }}
-                >
-                  돌아가기
-                </BtnReturn>
-            </DetailBox>
-            <Footer />
-        </Layout>
-      );
-    
+
+  useEffect(() => {
+    setUpdatedTodo(todoItem.body);
+  }, [todoItem]);
+
+  const isUpdate = () => {
+    mod ? setMod(false) : setMod(true);
+  }
+
+  return (
+    <Layout>
+      <Header />
+      <DetailWrap>
+        <DetailBox>
+          <TitBox>
+            <Title>{todoItem.title}</Title>
+            <Id>ID : {todoItem.id}</Id>
+          </TitBox>
+          {!mod ?
+            <Body>{todoItem.body}</Body>
+            :
+            <ModBody
+              name="body"
+              rows="10"
+              maxLength={200}
+              value={updatedTodo}
+              onChange={(event) => {
+                setUpdatedTodo(event.target.value);
+              }} />
+
+          }
+          <BtnBox>
+            {!mod ?
+              <BtnReturn
+                onClick={() => {
+                  navigate("/todoList")
+                }}>
+                이전으로
+              </BtnReturn>
+              :
+              <BtnReturn onClick={isUpdate}>수정취소</BtnReturn>
+            }
+            {!mod ?
+              <BtnReturn onClick={isUpdate}>수정하기</BtnReturn>
+              :
+              <BtnReturn
+                onClick={() => {
+                  const obj = {
+                    ...todoItem,
+                    body: updatedTodo
+                  }
+                  dispatch(__updateContent(obj));
+                  isUpdate();
+                }}>
+                저장하기
+              </BtnReturn>
+            }
+          </BtnBox>
+        </DetailBox>
+        <Comment detailConId={todoItem.id} />
+      </DetailWrap>
+      <Footer />
+    </Layout>
+  );
+
 };
 
 export default Detail;
+
+const BtnBox = styled.div`
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:24px;
+`
 
 const Layout = styled.div`
     display: block;
@@ -51,6 +107,11 @@ const Layout = styled.div`
     padding: 0;
     
 `;
+const DetailWrap = styled.div`
+  width: 100%;
+  display : flex;
+  flex-direction : row;
+`
 
 const DetailBox = styled.div`
     width: 95%;
@@ -104,6 +165,16 @@ const Body = styled.p`
     min-height: 240px;
     background-color: transparent;
 `;
+
+const ModBody = styled.textarea`
+  font-size: 0.9rem;
+    line-height: 1.6;
+    padding: 0 20px;
+    color: #004d40;
+    height: 100%;
+    min-height: 240px;
+    background-color: transparent;
+`
 
 const BtnReturn = styled.button`
   padding: 10px 40px;
