@@ -101,9 +101,11 @@ const ListWrap = styled.article`
   width: 320px;
   max-height: 560px;
   min-height: 560px;
-  background-color: #e2d3c4;
-  border: 1px solid #39796b;
-  padding: 5px;
+  background-color: white;
+  border: 1px solid #bdc4d5;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0px 2px 10px #9dabca;
   overflow: auto;
 
   @media screen and (max-width: 900px) {
@@ -135,9 +137,10 @@ const ListTit = styled.section`
 grid-template-rows: 2 / 3;
 grid-template-columns: 3 / 4;
 font-weight: 700;
-font-size: 1.4rem;
-color: #004d40;
+font-size: 2rem;
+color: #121212;
 margin: 10px 20px;
+text-align: center;
 
 @media screen and (max-width: 900px) {
         margin-top: 40px;
