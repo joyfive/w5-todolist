@@ -103,7 +103,7 @@ const List = () => {
         </ListWrap>
         </Toggle>
         <More>
-    <Btn size="medium" onClick={() => {
+    <Btn color="reverse" size="medium" onClick={() => {
       navigate("/edit")
   }}>할일 추가하기</Btn>
   </More>
