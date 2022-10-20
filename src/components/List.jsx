@@ -125,6 +125,7 @@ const ListWrap = styled.article`
   flex-wrap: wrap;
   /* justify-content: center; */
   /* align-items: top; */
+  align-content: flex-start;
 
   @media screen and (max-width: 900px) {
         min-height: 100px;
