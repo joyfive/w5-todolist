@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import GlobalStyle from "./components/GlobalStyle";
+import GlobalStyle from "./components/element/GlobalStyle";
 // 우리가 추가할 코드
 import store from "./redux/config/configStore";
 import { Provider } from "react-redux";

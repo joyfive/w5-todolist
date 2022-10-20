@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
-import Header from "../components/Header";
+import Header from "../components/element/Header";
 import List from "../components/List";
-import Footer from "../components/Footer";
+import Footer from "../components/element/Footer";
+// import Layout from "../components/element/Layout"
 
 
 
@@ -30,11 +31,11 @@ const Layout = styled.div`
     /* grid-auto-rows: minmax(40px, auto); */
     margin: 0;
     padding: 0;
-    background-color: #ffefe0;
+    background-color: #fff;
 
     @media screen and (max-width: 900px) {
         grid-template-columns: 1fr;
-        width: 95%;
+        width: 100%;
     }
     `;
 

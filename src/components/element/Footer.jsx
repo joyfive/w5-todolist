@@ -13,19 +13,21 @@ const FootContainer = styled.section`
   grid-column: 1 / 4;
   grid-row: 4 / 5;
   width: 100%;
-  height: 30px;
-  background-color: #e2d3c4;
-  color: #00251a;
-  line-height: 2.5;
+  height: 36px;
+  background-color: #333;
+  color: white;
+  line-height: 2.7;
   text-align: center;
-  font-size: 0.8rem;
-  font-weight: 400;
+  font-size: 0.9rem;
+  font-weight: 300;
   margin: 0;
   position: fixed;
   bottom: 0;
   left: 0;
+  box-shadow: 0px -2px 10px #c6c6c6;
 
   @media screen and (max-width: 900px) {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
+        line-height: 3.2;
     }
 `
