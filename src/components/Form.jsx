@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __addTodo, __getTodos } from '../redux/modules/todos';
+import { __addTodo } from '../redux/modules/todos';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
+
 import useInput from "../hooks/useInput";
 
 const Form = () => {
@@ -10,44 +11,24 @@ const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(__getTodos());
-  }, [dispatch]);
-
-
-  //id최대값
-  const getMaxId = () => {
-    let stateIdArr = todos.map(element => {
-      return Number(element.id)
-    });
-    return Math.max(...stateIdArr);
-  }
-
-  const [todo, setTodo] = useState({
-    title: "",
-    body: "",
+  //커스텀 훅 사용
+  const [todoInput, setTodoInput, todoInputHandle] = useInput({
     writer: "",
-    isDone: false,
+    title: "",
+    body: ""
   });
 
-  const [test, testHandle] = useInput();
-
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
-  };
-
   const onReset = () => {
-    setTodo({
-      title: "",
-      body: "",
+    setTodoInput({
       writer: "",
+      title: "",
+      body: ""
     });
   };
 
   const validateForm = () => {
     let validated = true;
-    if (todo.body === "" || todo.title === "" || todo.writer === "") {
+    if (todoInput.body === "" || todoInput.title === "" || todoInput.writer === "") {
       validated = false;
     }
     return validated;
@@ -56,10 +37,10 @@ const Form = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      if (todo.title.trim() === "" || todo.body.trim() === "" || todo.writer.trim() === "")
+      if (todoInput.title.trim() === "" || todoInput.body.trim() === "" || todoInput.writer.trim() === "")
         return;
 
-      dispatch(__addTodo({ id: (getMaxId() + 1), ...todo }));
+      dispatch(__addTodo(todoInput));
       onReset();
     };
   }
@@ -73,50 +54,53 @@ const Form = () => {
   }, [isSuccess]);
 
   return (
-    <FormBox onSubmit={onSubmit} id="add">
-      <InputContainer>
-        <InputVali>
-          <InputBox
-            type="text"
-            name="writer"
-            value={todo.writer}
-            onChange={onChange}
-            placeholder='작성자'
-          />
-          <Valitext>{todo.writer === "" ? '작성자를 입력해주세요.' : ""}</Valitext>
-        </InputVali>
-        <InputVali>
-          <InputBox
-            type="text"
-            name="title"
-            value={todo.title}
-            onChange={onChange}
-            placeholder='제목'
-          />
-          <Valitext>{todo.title === "" ? '제목을 입력해주세요.' : ""}</Valitext>
-        </InputVali>
-        <InputVali>
-          <InputBox
-            type="text"
-            name="body"
-            value={todo.body}
-            onChange={onChange}
-            className="input-txt"
-            placeholder='내용'
-          />
-          <Valitext>{todo.body === "" ? '내용을 입력해주세요.' : ""}</Valitext>
-        </InputVali>
+    <>
+      <FormBox onSubmit={onSubmit} id="add">
+        <InputContainer>
+          <InputVali>
+            <InputBox
+              type="text"
+              name="writer"
+              value={todoInput.writer || ""}
+              onChange={todoInputHandle}
+              placeholder='작성자'
+            />
+            <Valitext>{todoInput.writer === "" ? '작성자를 입력해주세요.' : ""}</Valitext>
+          </InputVali>
+          <InputVali>
+            <InputBox
+              type="text"
+              name="title"
+              value={todoInput.title || ""}
+              onChange={todoInputHandle}
+              placeholder='제목'
+            />
+            <Valitext>{todoInput.title === "" ? '제목을 입력해주세요.' : ""}</Valitext>
+          </InputVali>
+          <InputVali>
+            <InputBox
+              type="text"
+              name="body"
+              value={todoInput.body || ""}
+              onChange={todoInputHandle}
+              className="input-txt"
+              placeholder='내용'
+            />
+            <Valitext>{todoInput.body === "" ? '내용을 입력해주세요.' : ""}</Valitext>
+          </InputVali>
 
-      </InputContainer>
+        </InputContainer>
 
 
 
 
-      <BtnBox>
-        <BtnAdd type="submit" form="add" className="form-btn" >작성하기</BtnAdd>
-        <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
-      </BtnBox>
-    </FormBox>
+        <BtnBox>
+          <BtnAdd type="submit" form="add" className="form-btn" >작성하기</BtnAdd>
+          <BtnReset type="button" onClick={onReset} className="form-btn">리셋하기</BtnReset>
+        </BtnBox>
+      </FormBox>
+
+    </>
   );
 };
 
@@ -135,6 +119,9 @@ const FormBox = styled.form`
   flex-direction: column;
   @media screen and (max-width: 900px) {
     }
+
+
+  
 `;
 
 const InputContainer = styled.section`
