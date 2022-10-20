@@ -176,7 +176,7 @@ const Body = styled.p`
     font-size: 0.9rem;
     line-height: 1.6;
     padding: 0 20px;
-    color: #2c5cc5;
+    color: #121212;
     height: 100%;
     min-height: 240px;
     background-color: transparent;

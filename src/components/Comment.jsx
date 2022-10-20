@@ -205,6 +205,7 @@ const ContentBody = styled.div`
     font-size : 13px; 
     color: #121212;
     display: block;
+    word-break: break-all;
 `
 const ContentModBody = styled.textarea`
   font-size: 0.9rem;

@@ -5,9 +5,11 @@ import styled from "styled-components";
 import Todo from './Todo'
 import { IoIosRepeat } from "react-icons/io";
 import Btn from "../components/element/Btn"
+import { useNavigate } from 'react-router-dom';
+
 
 const List = () => {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, error, todos } = useSelector((state) => state.todos);
   const [useDoDisplay, setUseDoDisplay] = useState("block");
@@ -56,6 +58,7 @@ const List = () => {
   }
 
   return (
+    <>
     <ListCont>
       
       <Toggle isDisplay={useDoDisplay}>
@@ -99,7 +102,14 @@ const List = () => {
 
         </ListWrap>
         </Toggle>
+        <More>
+    <Btn size="medium" onClick={() => {
+      navigate("/edit")
+  }}>할일 추가하기</Btn>
+  </More>
     </ListCont>
+
+  </>
   );
 }
 
@@ -130,7 +140,7 @@ const ListWrap = styled.article`
   @media screen and (max-width: 900px) {
         min-height: 100px;
         margin: 0 auto;
-        max-height: 100%;
+        max-height: 500px;
         flex-direction: column;
         flex-wrap: nowrap;
         width: 60%;
@@ -148,7 +158,7 @@ const ListCont = styled.section`
   min-height: 72vh;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   @media screen and (max-width: 900px) {
         /* flex-direction: column;
@@ -180,4 +190,10 @@ text-align: center;
     .ico {
       background-color: transparent;
     }
+`
+
+const More = styled.div`
+  text-align: center;
+  margin: 20px auto 40px auto;
+  background-color: transparent;
 `

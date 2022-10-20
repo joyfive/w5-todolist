@@ -35,28 +35,33 @@ export const __getTodos = createAsyncThunk(
 export const __addTodo = createAsyncThunk(
   "todos/addTodo",//type
   async (payload, thunkAPI) => {
-    try {
-      await axios.post(`${process.env.REACT_APP_API_URL_TODOS}`, payload);
-      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+  try {
+  console.log("redux", payload)
+  
+  //id Max값 여기서 구현해봄
+  const getTodos = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
+  const todosIdArr = getTodos.data.map((e) => { return e.id });
+  await axios.post(`${process.env.REACT_APP_API_URL_TODOS}`, { id: (Math.max(todosIdArr) + 1), isDone: false, ...payload });
+  const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
+  return thunkAPI.fulfillWithValue(data.data);
+  } catch (error) {
+  return thunkAPI.rejectWithValue(error);
   }
-);
-
-export const __deleteTodo = createAsyncThunk(
+  }
+  );
+  
+  export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
-    try {
-      await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload.id}`);
-      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+  try {
+  await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload}`);
+  const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
+  return thunkAPI.fulfillWithValue(data.data);
+  } catch (error) {
+  return thunkAPI.rejectWithValue(error);
   }
-);
+  }
+  );
 
 export const __updateStatus = createAsyncThunk(
   "todos/updateStatus",//type

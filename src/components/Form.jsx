@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __addTodo } from '../redux/modules/todos';
 import styled from "styled-components";
@@ -9,7 +9,7 @@ import Btn from "../components/element/Btn"
 
 
 const Form = () => {
-  const { isSuccess, error, todos } = useSelector((state) => state.todos);
+  const { isSuccess, error } = useSelector((state) => state.todos);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ const Form = () => {
     } else {
       if (error !== undefined) console.log(error);
     }
-  }, [isSuccess]);
+  }, [isSuccess, error, navigate]);
 
   return (
     <>
@@ -66,8 +66,9 @@ const Form = () => {
               value={todoInput.writer || ""}
               onChange={todoInputHandle}
               placeholder='작성자'
+              maxLength='4'
             />
-            <Valitext>{todoInput.writer === "" ? '작성자를 입력해주세요.' : ""}</Valitext>
+            <Valitext>{todoInput.writer === "" ? '작성자를 4글자 이내로 입력해주세요.' : ""}</Valitext>
           </InputVali>
           <InputVali>
             <InputBox
@@ -76,8 +77,9 @@ const Form = () => {
               value={todoInput.title || ""}
               onChange={todoInputHandle}
               placeholder='제목'
+              maxLength='10'
             />
-            <Valitext>{todoInput.title === "" ? '제목을 입력해주세요.' : ""}</Valitext>
+            <Valitext>{todoInput.title === "" ? '제목을 10글자 이내로 입력해주세요.' : ""}</Valitext>
           </InputVali>
           <InputVali>
             <InputBox
@@ -86,9 +88,9 @@ const Form = () => {
               value={todoInput.body || ""}
               onChange={todoInputHandle}
               className="input-txt"
-              placeholder='내용'
+              maxLength='100'
             />
-            <Valitext>{todoInput.body === "" ? '내용을 입력해주세요.' : ""}</Valitext>
+            <Valitext>{todoInput.body === "" ? '내용을 100글자 이내로 입력해주세요.' : ""}</Valitext>
           </InputVali>
 
         </InputContainer>

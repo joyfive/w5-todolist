@@ -44,6 +44,12 @@ ${({ size }) => {
         return css`
           width: 40%;
         `;
+      case "medium":
+        return css`
+          width: 180px;
+          height: 40px !important;
+          padding; 5px;
+        `
       case "small":
         return css`
           width: 30px;
