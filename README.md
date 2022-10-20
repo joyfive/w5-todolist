@@ -1,5 +1,5 @@
 # Welcome to REACT! 3nd React.app 😎
-
+![](https://velog.velcdn.com/images/joyfive/post/27f90000-dd7c-4bac-8315-93fe0c67492a/image.gif)
 
 ▶️[Go to Project](https://w5-todolist.vercel.app/)
 
@@ -78,7 +78,7 @@ Todo 컴포넌트의 <Todobox />`border, color 요소를 isdone의 value에 따�
 - 적용범위 : <TodoList> 페이지 - 해야할일/완료한일 <Detail> 페이지 - 댓글창(노출, 숨김)
 
 ### Mobile responsive web
-
+![](https://velog.velcdn.com/images/joyfive/post/5c91d69b-2ce0-4dbb-b3bd-7494035b2688/image.gif)
 
 
 <br>
