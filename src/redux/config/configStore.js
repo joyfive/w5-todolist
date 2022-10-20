@@ -1,64 +1,16 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import todos from "../modules/todos.js";
+import comments from "../modules/comments.js";
 
-const rootReducer = combineReducers({
-  todos,
+const store = configureStore({
+  reducer: {
+    todos,
+    comments,
+  },
+  //배포 모드일때 리덕스 데브툴 사용 안함
+  devTools: process.env.REACT_APP_MOD !== 'production'
 });
-const store = createStore(rootReducer);
+
+console.log(process.env.REACT_APP_MOD);
 
 export default store;
-
-// const rootReducer = combineReducers({
-//     todos,
-// });
-
-// const store = createStore(rootReducer);
-
-// const ADD = "ADD";
-// const DELETE = "DELETE";
-
-
-// export const addTodo = (title, body) => {
-//     return {
-//         type:ADD,
-//         title,
-//         body
-//     }
-// }
-
-
-// export const deleteTodo = id => {
-//     return {
-//         type: DELETE,
-//         id
-//     }
-// }
-
-// const reducer = (state = [], action) => {
-//     switch (action.type) {
-//         case ADD:
-//             return [{ title: action.title, body: action.body, id: Date.now() }, ...state]
-//         case DELETE:
-//             return state.filter(todo => todo !== action.id);
-//         default:
-//         return state;
-    
-//         }
-// };
-
-
-
-// export default store;
-
-
-// import { createStore } from "redux";
-// import { combineReducers } from "redux";
-// import todos from "../modules/todos";
-
-// const rootReducer = combineReducers({
-//   todos,
-// });
-// const store = createStore(rootReducer);
-
-// export default store;

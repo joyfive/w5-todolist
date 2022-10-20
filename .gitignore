@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#env
+#버셀에 올려야하니 주석 실제로 쓸때는 안올라가도록 주의하자
+#.env
