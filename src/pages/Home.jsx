@@ -12,7 +12,7 @@ const Home = () => {
             <Header />
             <Contents>
                 <HomeBox>
-                    <h1>What to do?</h1>
+                    <h1>What to do? {process.env.REACT_APP_MOD}</h1>
 
                     <Btn onClick={() => {
                         navigate("/todoList")

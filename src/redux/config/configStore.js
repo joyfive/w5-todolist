@@ -11,6 +11,4 @@ const store = configureStore({
   devTools: process.env.REACT_APP_MOD !== 'production'
 });
 
-console.log(process.env.REACT_APP_MOD);
-
 export default store;
