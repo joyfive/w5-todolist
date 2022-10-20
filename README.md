@@ -1,9 +1,7 @@
 # Welcome to REACT! 3nd React.app 😎
-![](https://velog.velcdn.com/images/joyfive/post/dcd2814e-58ee-430f-a572-a732272cf00a/image.gif)
 
 
-
-▶️[Go to Project](https://w4-todolist.vercel.app/)
+▶️[Go to Project](https://w5-todolist.vercel.app/)
 
 ## 👉 페이지 소개
 리액트의 기본 기능을 연습하고 Redux를 활용한 투두리스트 웹앱 (프론트범위만 진행)
