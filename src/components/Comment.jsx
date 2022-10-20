@@ -54,7 +54,7 @@ const Comment = (props) => {
                                     <ContentTitle>{comment.writer}</ContentTitle>
                                     <ContentBtnGroup>
                                      {!comment.isMod ?
-                                        <StSpan><Btn size="small" onClick={() => { dispatch(commentIsMod(comment.id)) }}><IoMdCreate className="ico" /></Btn>
+                                        <StSpan><Btn color="reverse" size="small" onClick={() => { dispatch(commentIsMod(comment.id)) }}><IoMdCreate className="ico" /></Btn>
                                             &nbsp;<Btn size="small" onClick={() => {
                                                 const obj = {
                                                     id: comment.id,
@@ -72,7 +72,7 @@ const Comment = (props) => {
                                             setCommentUpdate();
                                             dispatch(commentIsMod(comment.id));
                                         }}><IoArrowUndoSharp className="ico" /></Btn>
-                                            &nbsp;<Btn size="small" onClick={() => {
+                                            &nbsp;<Btn color="reverse" size="small" onClick={() => {
                                                 const obj = {
                                                     id: comment.id,
                                                     contentId: props.detailConId,
@@ -106,7 +106,7 @@ const Comment = (props) => {
                 <WriterWrap onSubmit={onSubmit} id="comment">
                     <WriterInput type="text" name="writer" value={useWriteInput.writer || ""} onChange={onChange} placeholder='작성자 (5자 이내)' maxLength='5' />
                     <WriterTextarea name="body" value={useWriteInput.body || ""} onChange={onChange} placeholder='댓글을 추가하세요 (100자 이내)' maxLength='100' />
-                    <Btn type='submit' form='comment'>댓글 등록하기</Btn>
+                    <Btn color="reverse" type='submit' form='comment'>댓글 등록하기</Btn>
                 </WriterWrap>
             </CommentContentWrap>
         </CommentWrap >
