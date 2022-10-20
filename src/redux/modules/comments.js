@@ -14,12 +14,10 @@ const initialState = {
 
 export const __getComments = createAsyncThunk(
     "comments/getComments",//type
-    async (detailConId, thunkAPI) => {
+    async (payload, thunkAPI) => {
         try {
-
-
             const data = await axios.get(`${process.env.REACT_APP_API_URL_COMMENTS}`);
-            const filterData = data.data.filter((val) => { return val.contentId === detailConId });
+            const filterData = data.data.filter((val) => { return val.contentId === payload });
             return thunkAPI.fulfillWithValue(filterData);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

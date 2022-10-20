@@ -22,7 +22,7 @@ const initialState = {
 
 export const __getTodos = createAsyncThunk(
   "todos/getTodos",//type
-  async (_, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
@@ -37,7 +37,7 @@ export const __addTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.post(`${process.env.REACT_APP_API_URL_TODOS}`, payload);
-      const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
+      const data = await axios.get("https://w5-todolist-heroku.herokuapp.com/todos");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,7 +49,7 @@ export const __deleteTodo = createAsyncThunk(
   "todos/deleteTodo",//type
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL_TODOS}/${payload.id}`);
       const data = await axios.get(`${process.env.REACT_APP_API_URL_TODOS}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
