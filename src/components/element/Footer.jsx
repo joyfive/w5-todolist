@@ -14,7 +14,7 @@ const FootContainer = styled.section`
   grid-row: 4 / 5;
   width: 100%;
   height: 36px;
-  background-color: #16367d;
+  background-color: #333;
   color: white;
   line-height: 2.7;
   text-align: center;
@@ -24,6 +24,7 @@ const FootContainer = styled.section`
   position: fixed;
   bottom: 0;
   left: 0;
+  box-shadow: 0px -2px 10px #c6c6c6;
 
   @media screen and (max-width: 900px) {
         font-size: 0.7rem;

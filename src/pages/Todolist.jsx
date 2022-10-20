@@ -35,7 +35,7 @@ const Layout = styled.div`
 
     @media screen and (max-width: 900px) {
         grid-template-columns: 1fr;
-        width: 95%;
+        width: 100%;
     }
     `;
 

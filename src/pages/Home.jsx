@@ -96,7 +96,8 @@ const HomeBox = styled.div`
   height: 100%;
   margin: 15% 20px;
   /* background-color: red; */
-  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.0)),url(https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 1.0)),
+  url(https://images.unsplash.com/photo-1547104442-991cb31eaafd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80);
     background-position: center 50%;
     background-size: cover;
     border-radius: 20px;

@@ -201,7 +201,9 @@ const ContentBody = styled.div`
     min-height : 80px;
     margin : 10px auto;
     border-top : solid 1px #eee;
+    background-color: transparent;
     font-size : 13px; 
+    color: #121212;
     display: block;
 `
 const ContentModBody = styled.textarea`
@@ -210,7 +212,7 @@ const ContentModBody = styled.textarea`
   padding: 20px;
   color: #2c5cc5;
   margin: 10px auto;
-  width : 90%;
+  width : 80%;
   height: 100%;
   min-height: 80px;
   background-color: transparent;
@@ -255,3 +257,4 @@ border: 1px solid #2c5cc5;
 const StSpan = styled.span`
     background-color: transparent;
 `
+
