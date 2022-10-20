@@ -70,7 +70,7 @@ const Detail = () => {
               <Btn onClick={isUpdate}>수정취소</Btn>
             }
             {!mod ?
-              <Btn onClick={isUpdate}>수정하기</Btn>
+              <Btn color="reverse" onClick={isUpdate}>수정하기</Btn>
               :
               <Btn
                 onClick={() => {
