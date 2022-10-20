@@ -148,6 +148,7 @@ const Title = styled.h1`
     font-weight: 700;
     line-height: 0.6;
     background-color: transparent;
+    word-break: break-all;
     @media screen and (max-width: 900px) {
         font-size: 1.4rem;
         line-height: 0.7;
@@ -180,6 +181,8 @@ const Body = styled.p`
     min-height: 240px;
     background-color: transparent;
     width:80%;
+
+  word-break: break-all;
 `;
 
 const ModBody = styled.textarea`

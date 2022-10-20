@@ -16,9 +16,9 @@ function Todo({ todo, onEdit, onDelete }) {
  return (
         <Todobox color={todo.isDone ? "#eee" : "#fff"}>
           <Container>
-              <Title> 
-                <TitText>{todo.title}</TitText>
-              </Title>
+
+                <TitText>{todo.title.length < 12 ? todo.title : todo.title.slice(0,12) + '...' }</TitText>
+
               <Hr />
               <BodyWrap>
               <Body>@{todo.writer}</Body>
@@ -50,31 +50,41 @@ export default Todo;
 const Todobox = styled.article`
 margin: 10px;
 padding: 20px;
-width: 80%;
+width: 200px;
+max-width: 80%;
+height: 100px;
 /** done */
 background-color: ${props => props.color || "blue"};
 border-radius: 10px;
 box-shadow: 0px 2px 10px #9dabca;
+@media screen and (max-width: 900px) {
+        min-height: 100px;
+        margin: 0 auto;
+        max-height: 100%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 90%;
+        margin-bottom: 20px;
+        align-content: center;
+    }
 `
 
 const Container = styled.div`
 background-color: transparent;
+width: 100%;
 `
-const Title = styled.div`
+// const Title = styled.div`
 
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
+// `
+
+const TitText = styled.div`
 font-weight: 600;
 font-size: 1rem;
 line-height: 2;
-background-color: transparent;
 color: #2c5cc5;
-`
-
-const TitText = styled.div`
+width: 100%;
 background-color: transparent;
+word-break: break-all;
 `
 
   const Body = styled.div`
@@ -85,6 +95,8 @@ background-color: transparent;
   background-color: transparent;
   margin: 15px 5px;
   line-height: 0.8;
+  width: 33%;
+  word-break: break-all;
 `
 
 const Btn = styled.button`

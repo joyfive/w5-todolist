@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { __getTodos, __deleteTodo, __updateStatus } from "../redux/modules/todos.js";
 import styled from "styled-components";
 import Todo from './Todo'
-
+import { IoIosRepeat } from "react-icons/io";
+import Btn from "../components/element/Btn"
 
 const List = () => {
+
   const dispatch = useDispatch();
   const { isLoading, error, todos } = useSelector((state) => state.todos);
-
+  const [useDoDisplay, setUseDoDisplay] = useState("block");
+  const [useDoneDisplay, setUseDoneDisplay] = useState("none");
+  const onToggle = () => {
+    useDoDisplay === "block" ? setUseDoDisplay("none") : setUseDoDisplay("block");
+    useDoneDisplay === "none" ? setUseDoneDisplay("block") : setUseDoneDisplay("none");
+}
+//   const onToggleDone = () => {
+//     useDoneDisplay === "none" ? setUseDoneDisplay("block") : setUseDoneDisplay("none");
+//     useDoDisplay === "block" ? setUseDoDisplay("none") : setUseDoDisplay("block");
+// }
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
@@ -45,10 +56,10 @@ const List = () => {
   }
 
   return (
-    <>
     <ListCont>
-      <div>
-        <ListTit>해야 할일.</ListTit>
+      
+      <Toggle isDisplay={useDoDisplay}>
+        <ListTit>해야 할일.<Btn onClick={onToggle} size="small"><IoIosRepeat className='ico' /></Btn></ListTit>
         <ListWrap>
           {todos.map((todo) => {
             if (!todo.isDone) {
@@ -66,10 +77,9 @@ const List = () => {
             }
           })}
         </ListWrap>
-      </div>
-
-      <div>
-        <ListTit>완료한 할일.</ListTit>
+        </Toggle>
+        <Toggle isDisplay={useDoneDisplay}>
+        <ListTit>완료한 할일.<Btn onClick={onToggle} size="small"><IoIosRepeat className='ico' /></Btn></ListTit>
         <ListWrap>
           {todos.map((todo) => {
             if (todo.isDone) {
@@ -88,38 +98,54 @@ const List = () => {
           })}
 
         </ListWrap>
-      </div>
+        </Toggle>
     </ListCont>
-    </>
   );
 }
 
 export default List;
 
+const Toggle = styled.div`
+  display : ${(props) => props.isDisplay};
+`
+
 const ListWrap = styled.article`
-  margin: 10px;
-  width: 320px;
-  max-height: 560px;
-  min-height: 560px;
+  margin: 20px auto;
+  width: 850px;
+  max-width: 90%;
+  height: 560px;
   background-color: white;
   border: 1px solid #bdc4d5;
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0px 2px 10px #9dabca;
   overflow: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  /* align-items: top; */
 
   @media screen and (max-width: 900px) {
         min-height: 100px;
         margin: 0 auto;
         max-height: 100%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 60%;
+        align-content: center;
+    }
+    @media screen and (max-width: 500px) {
+        width: 90%;
     }
   
 `
 
 const ListCont = styled.section`
-  margin: 80px 0 70px 0;
+  margin: 80px auto 70px auto;
   padding: 10px;
   min-height: 72vh;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -128,7 +154,7 @@ const ListCont = styled.section`
         align-content: center;
         align-items: center; */
         display: block;
-        margin: 140px auto 20px auto;
+        margin: 80px auto 20px auto;
     }
   
 `
@@ -148,5 +174,9 @@ text-align: center;
         font-size: 1.8rem;
         margin-bottom: 20px;
         
+    }
+
+    .ico {
+      background-color: transparent;
     }
 `
