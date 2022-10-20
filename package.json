@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "@mdi/js": "^7.0.96",
     "@mdi/react": "^1.6.1",
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "start": "node server",
-    "start:dev": "env-cmd -f .env cross-env NODE_PATH=src react-scripts start",
+    "start:dev": "env-cmd -f .env.development cross-env NODE_PATH=src react-scripts start",
     "build": "cross-env NODE_PATH=src react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
