@@ -34,7 +34,7 @@
 ## 👉 구현 기능
 ### 1. Edit page (Create)
 - Create : axios.post 로 Mock server(json-server)에 신규 객체 추가
-- Validation : 기존 state를 활용한 방식에서 UI로 구현하는 방식으로 개선
+- Validation : 기존 state를 활용한 방식에서 UI로 구현하는 방식으로 개선<br>
 ㄴ 버튼 클릭 시 사용자에게 누락된 인풋을 고지하는 방식에서 안내 문구가 먼저 노출된 상태에서 필드 입력 시 문구가 사라지는 방식으로 개선하여 사용성을 높이고자 함
 
 ### 2. Todolist page (Read & Update & Delete)
