@@ -97,7 +97,7 @@ const Form = () => {
 
         <BtnBox>
           <Btn type="button" onClick={onReset} className="form-btn">리셋하기</Btn>
-          <Btn type="submit" form="add" className="form-btn" >작성하기</Btn>
+          <Btn color="reverse" type="submit" form="add" className="form-btn" >작성하기</Btn>
         </BtnBox>
       </FormBox>
     </>
